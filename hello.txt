@@ -8,4 +8,3 @@ git add . 		  -> 폴더의 모든 변경점을 추가
 커밋하기(버전기록)
 git commit -m "frist commit"
 
-ㅀ로
