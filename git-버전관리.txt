@@ -40,6 +40,9 @@ oring : 뒤에 주소가 너무 길어  origin으로 대체
 git push -u origin master
 
 
+GITHUB DESKTOP
+	add .		commit		push
+폴더 ->stage ->버전기록 -> 원격 저장소에 저장
 
 
 
