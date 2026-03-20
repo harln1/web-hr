@@ -1,0 +1,52 @@
+저장소  repository
+버전저장 commit
+원격 저장소로 업로드 push
+원격 저장소에서 다운로드 pull(fetch패치)해
+
+ git config --global user.name "이름" #사용자 이름 설정
+ git config --global user.email "메일" #사용자 이메일 설정
+커밋하기
+
+init =초기화 ->초기값을 저장
+위임
+git init
+
+git add 파일 이름  -> 해당 파일만 추가
+git add . 		  -> 폴더의 모든 변경점을 추가
+
+버전기록 (커밋하기 commit)
+ git commit -m "메시지"
+
+어떤 버전이 기록됐는지 확인 
+git log
+
+없애기(되돌리기)
+git reset --hard HEAD~1
+git reset +옶션 +커밋 ID
+옶션 : 
+git reset --soft HEAD~1
+--SOFT 		->커밋 내용은 사라지는데 내용을 임시저장 상태롤 되돌린다
+git reset --mixed HEAD~1
+--MIXED	->임시 저장도 취소한다. 작업 공간에는 남겨둠
+git reset --hard HEAD~1
+--HARD		->임시 저장도 취소 , 작업 공간에서도 삭제
+커밋ID??:
+HEAD  :(HEAD~2)(HEAD~1) 최신 버전을 의미한다 
+
+깃허브에 올려보기(원격 저장하기)
+원격저장에 올리기전 반드시 커밋이 완료되어야한다
+git remote add origin https://github.com/harln1/web-hr.git
+oring : 뒤에 주소가 너무 길어  origin으로 대체 
+git push -u origin master
+
+
+
+
+
+
+
+
+
+
+
+
