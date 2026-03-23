@@ -1,3 +1,9 @@
+과제 
+변수의 종류조사
+자바의 메모리 구조에 대해 조사
+
+
+
 기억하기
 **1. JRE(Java Runtime Environment)**
 
