@@ -12,23 +12,27 @@ public class SannerExample {
 		Scanner sc = new Scanner(System.in);//System.in : 입력 받겠다
 		
 		String name,address;
-		
 		int age;
 		double height;
+		
 		System.out.print("이름 : ");
 		name = sc.next();
 		System.out.println("주소 : ");
 		address = sc.next();
-		System.out.print("신장 : ");
-		height = sc.nextDouble();
+
 		//객체를 통해 클래스 안에 정의된 기능을 호출
 		System.out.print("나이 : ");
 		age = sc.nextInt();//입력받은 값을 age에 대입
 		
+		System.out.print("신장 : ");
+		height = sc.nextDouble();
+
+		
 		System.out.printf("당신의 이름은 %s 입니다\n",name);
 		System.out.printf("당신의 주소는 %s 입니다\n",address);
-		System.out.printf("당신의 신장은 %.1fcm 입니다\n",height);
 		System.out.printf("당신의 나이는 %d세 입니다\n",age);
+		System.out.printf("당신의 신장은 %.1fcm 입니다\n",height);
+		
 		
 	}
 
