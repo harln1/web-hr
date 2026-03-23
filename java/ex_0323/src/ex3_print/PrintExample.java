@@ -29,7 +29,9 @@ public class PrintExample {
 		System.out.printf("키는 %.1f cm 입니다\n",height);
 		
 		int price = 123;
-		System.out.printf("상품의 가격 : %06d원\n",price);//자릿수 6으로하고 빈공간은 뛰어쓰기로 채우기
+		System.out.printf("상품의 가격 : %06d원\n",price);
+		//자릿수 6으로하고 빈공간은 뛰어쓰기로 채우기,%06d:빈공간을 0으로 채우기,%-6d 오른쪽이 띠어쓰기댐
+		
 	}
 
 }
