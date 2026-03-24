@@ -6,9 +6,9 @@ public class BitShiftOperatorExample {
 		int result1 = num1 << 3;
 		int result2 = num1 * (int)Math.pow(2, 3);
 		System.out.println(result1);
-		
-		int result3 = num2 >>3;
-		System.out.println(result3);
+//		
+//		int result3 = num2 >>3;
+//		System.out.println(result3);
 	}
 
 }
