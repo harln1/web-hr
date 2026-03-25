@@ -280,5 +280,49 @@ case 2:
 		default -> "F";
 		};
 		System.out.println(result);
+        훨신 짧고 간편하다
+
+
+
+4.for문
+package ex4_for;
+
+import java.util.Scanner;
+
+public class ForExample {
+	public static void main(String[] args) {
+		//지역변수 :특정 영역 내에서 만들어진 변수는 해당영역 내에서만 사용할 수 있음
+		//안에서 만들어진 변수는 바깥에서 사용할수 없지만, 바깥에서 만든 변수는 안쪽애서 사용할ㅇ수있다
+		for(int i = 1; i<=3 ; i++) {//1<=3 보다 작으니 i++ ,2<=3 작음 i++,3<=3같음 i++,4<=3 안작음 
+			System.out.println(i+"");                 //3번 반복댐 = 1 , 2 ,3 이 결과로 나온다
+			
+		}
+		
+		
+		System.out.println("-----------------------------");
+		for (int i = 5; i>0 ;i-- ) {
+			System.out.print  (i+"");
+		}
+		System.out.println("\n------------------------------");
+		int sum = 0; //총합을담을변수
+		for (int i = 1; i<10; i++) {
+			sum += i; //sum = sum+i 가 10번반복
+		}
+		System.out.println("1~10 까지의 총 합: " + sum);
+		System.out.println("\n-------------------------");
+		
+		//1부터 10까지 3의 배수만 출력하는 for문 작성하기
+		for (int i = 1; i <= 10; i++) {
+		    if (i % 3 == 0) { // i가 3의 배수라면
+		        System.out.println("3의 배수: " + i);
+		    }
+		}
+      
+--------------------------
+2025-03-25
+
+
+
+
 
 

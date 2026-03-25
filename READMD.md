@@ -16,4 +16,13 @@
 System.out.println
 ("Hellow Java");
 ```
+1. sual studio code 깔기
 
+2. 브 파일안에 파일 만들기 READMD.md
+
+3. 릭 ->code으로 열기
+
+4. 대제목 => 제목만드러진거임
+
+5. 컨트롤 +s저장후
+깃허브 데스크 탑으로 깃허브에 올리기
