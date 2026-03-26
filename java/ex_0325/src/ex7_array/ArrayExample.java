@@ -29,24 +29,36 @@ public class ArrayExample {
 		
 		
 		//배열의 각 공간에 접근하여 값을 대입할 수 있다
-		ar[0] = 100;
-		ar[1] = 200;
-		ar[2] = 300;
-		ar[3] = 400;
-		ar[4] = 500;
-		
+//		ar[0] = 100;
+//		ar[1] = 200;
+//		ar[2] = 300;
+//		ar[3] = 400;
+//		ar[4] = 500;
+//		
 //		System.out.println(ar[0]);
 //		System.out.println(ar[1]);
 //		System.out.println(ar[2]);
 //		System.out.println(ar[3]);
-//		System.out.println(ar[4]);
+//	System.out.println(ar[4]);
+//
+//		for ( int i = 0; i<ar.length ;i++) {
+//			System.out.println(ar[i]);
+//		}
+//		
+		int [] iAr = {1,2,3,4,5,6,7,8,9,10};
+		
+		//배열 iAr 에 들어있는 모든 요소의 합을 구하세요
 
-		for ( int i = 0; i<ar.length ;i++) {
-			System.out.println(ar[i]);
+		int sum = 0;
+		for (int i = 0; i<iAr.length ; i++) {
+			sum += iAr[i];
+		if (iAr[i] % 2 ==0) {
+			System.out.println("짝수");
+		}else if (iAr[i] % 2 != 0)
+			System.out.println("홀수");
 		}
-		
-		
-		
+		System.out.println(sum);
+
 
 	}
 
