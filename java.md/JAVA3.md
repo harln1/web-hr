@@ -1,4 +1,4 @@
-## 2026-03-26
+# 2026-03-26
 
 ### 이차원 배열
 - 1차원 배열을 요소로 갖는 배열
@@ -178,41 +178,277 @@ public class WeekExample {
   ```
 ## 객체 지향 프로그래밍
 
-- 객체들을 만들어서 프로그래밍을 하는 방식
- - 특징: 
-  
-  **캡슐화** 데이터 동작을 하나로 묶고 실제 구현내용을 외부에 감추는것
-### 객체
+- 프로그램을 객체 단위로 나눠 설계하고 구현하는 방식
+- 사용하지 않았을때의 문제:
+  - 데이터와 기능이 따로논다,관리도 힘들고, 재사용도 힘들다
+
+ ### 객체 지향의 4대특징: 
+  **캡슐화** 
+  - 데이터 동작을 하나로 묶고 실제 구현내용을 외부에 감추는것
+  - 데이터를 보호하는 개념 필드에 직접 접근 못하게함
+    - 필드는 제공된 메서드 통해서만 접근가능
+
+  **상속**
+  - 기존 클래스의 내용을 물려 받는 기능 (필드,메서드 )
+    -언제쓸까?. 코드를 재사용할때 사용하면 좋음
+
+  **다형성**(상속을 이해해야 함)
+  - 하나의 타입으로 여러 객체를 다룰 수 있는 성질
+  <부모가 여러개의 자식한테 물려줌,같은 가족인데 성격은 다름>
+  <타이어 - 타이어마다 성능이 다르다>
+
+  **추상화**(상속 이해 필요)
+  - 클래스를 단순화 시키는 것
 
 
-- 현실세계에서 표현할 수 있는 모든것
 
-현실세계의 객체를 소프트웨어 객체로 설계하는 것을 객체 모델링 이라고 한다
+### 핵심개념
 
-#### 객체 모델링
-
-
-
-객체의 특징과 동작을 추려내서 소프트 웬어 객체의 필드와 메서드로 정의하는과정
+1. ### class
+- 설계도 , 우리가 만든 참조 자료형
 ```java
 public class Car{
 public=접근제한자
 class=클래스임
 Car =클래스명
 
-
- int price;
- String color;
- String brand
+ex. int price;
+   String color;
+   String brand
 필드(멤버) : 클래스를 통해서 만들어진 객체들이 가질 정보
-
 }
 ```
 
-## 객체생성용 클래스
+ ### 객체
+ ```java
+ 클래스명 변수명 = new 클래스명()
+
+```
+- class 를 통해 만들어 진 것
+- 현실세계에서 표현할 수 있는 모든것
+- 필드에 객체만의 정보를 넣거나 필드의 내용을 사용할 수 있다
+```java
+객체변수명.필드명
+```
+- 클래스에 정의된 기능을 호출하여 사용할수있다
+```java
+객체변수명.메서드명
+```
+- 현실세계의 객체를 소프트웨어 객체로 설계하는 것을 객체 모델링 이라고 한다
+  #### 객체 모델링
+  - 객체의 특징과 동작을 추려내서 소프트 웬어 객체의 필드와 메서드로 정의하는과정
+
+#### 객체생성용 클래스
 public class Car{
     속성 (필드)
     행위(메서드)
 }
-이 두개만 들어갈수 있다 **꼭알아야함**
+클래스 안에는이 두개만 들어갈수 있다 **꼭알아야함**
+  - 필드: 객체가 가지는 정보(상태,속성) (이름,나이 키,몸무게 ...)
+  - 메서드: 각 객체가 할수있는 동작 (공부,먹는다,잔다...)
 
+#####  문제
+배열에다 학생 객체 3개 넣기
+
+ 1. class 필드
+- 설계도 , 우리가 만든 참조 자료형
+```java
+public class Car{
+public=접근제한자
+class=클래스임
+Car =클래스명
+```
+--------------------------------
+1. Student 필드
+```java
+package ex3_class;
+
+public class Student {
+ //필드 (학생이 가져야하는 정보)
+ String name;
+ int age;
+ int score;
+}
+```
+-------------------------------
+2. StudentMain필드
+```java
+public static void main(String[] args) {
+
+   {객체:클래스명 변수명 = new 클래스명()}
+   Student minsu = new Student();
+  
+   minsu .name = "민수 ";
+   minsu .age = 20;
+   minsu .score = 100;
+   Student gildon = new Student();
+   gildon .name = "길동 ";
+   gildon .age = 20;
+   gildon .score = 100;
+   Student yonghee= new Student();
+   yonghee .name = "영희";
+   yonghee .age = 20;
+   yonghee .score = 100;
+
+  따로따로  관리하기 힘드니깐
+  배열은 같은 타입의 데이터만 넣을 수 있다 데이터의 타입은 배열앞에 명시한다
+   Student[] students = {minsu,gildong,yonghee};
+
+   System.out.println(students[0].name); //0번 = 민수.이름
+
+       //배열에 들어있는 내용을 모두 출력하기 **반복문사용**
+   for (int i = 0; i < students.length; i++) {
+   System.out.println("이름: " +students[i].name);
+   System.out.println("나이: " +students[i].age);
+   System.out.println("점수: " +students[i].score);
+   System.out.println("\n----------------------");
+ }
+}
+```
+# 2026-03-27
+## 메서드
+### **retrun 밑에는 아무것도 없어야한다**
+### 메서드 선언
+```java
+**외우기**
+메서드 구조
+접근 제한자 반환형 메서드명(매개변수){
+    실행하고자 하는 명령
+    return 반환값;
+   }
+```
+  - 반환타입: 메서드를 호출하고 메서드는 블록안에 코드를 실행후 결과값을 반환(반환값이 없을때 void)
+
+#### 메서드 명(함수명)
+- 메서드 호출 할때 사용
+  - 메서드의 호출: 
+    - 객체x => 메서드호출 x 
+    - 메서드 내부에서 메서드 정의x (호출은 가능)  메서드 외부에서 메서드 호출 불가능
+
+#### 매개변수
+- 메소드를 호출 할 때 전달한 매개값을 받기위해 사용
+- 변수 = 지역변수(메모리 에서 stack영역에 만들어짐)
+```java
+ex)double divide(int x , int y){...}
+               매개 변수 ,매개변수
+```
+#### 가변길이 매개변수
+```java
+int [] values 
+```
+### 메서드 오버로딩
+ - 같은 이름을 사용하는다 다양한 매개값을 처리할수 있다.
+    - 1. 매개변수의 개수가 달라야한다
+    - 2. 개수가 같으면 타입이 달라야한다
+    - 3. 개수와 타입이 같다면 순서가 달라야한다
+
+ ```java
+ ex)
+ int plus (int x , int y){ //plus는 무조건 같기
+
+ }
+ double plus(double x , double y){
+
+ }
+ ```
+
+##### 문제 1. "메서드가 호출되었습니다" 라고 출력되는  printInfo 메서드 작성해보기
+```java
+package ex1_method;
+public class MethodExample {
+ public void printInfo() {
+  System.out.println("메서드가 호출 되었습니다");
+ }
+
+MethodMain클래스에서 출력해보기
+
+public class MethodMain {
+ public static void main(String[] args) {
+  
+  MethodExample m = new MethodExample();
+  m.printInfo();
+```
+--------------------
+문제 2. 두 수를 더하여 반환하는 add 메서드 작성
+```java
+package ex1_method;
+
+public class MethodExample {
+ public int add(int a, int b) { //반환할때의 타입 : z =>int
+  return a+b ; //반환할때  return
+
+  MethodMain클래스에서 출력해보기
+
+  MethodExample a = new MethodExample();
+
+  int result = m.add(10,7);
+  System.out.println(result);
+  ```
+  --------------------------
+  문제 3. 원의 넓이를 구하는 circleArea 메서드 작성하기 원의 넓이 :3.14 *반지름*반지름 반지름을 외부에서 받아서 넒이를 정하기
+  ```java
+  //1.메서드를 정의한다
+ public double circleArea(double r) {//2외부에서 받을 값이 있으면.double r 매개변수 준비
+  return 3.14*r*r; //3. 연산 결과를 보내줘야하면 return 계산 식 준비
+
+    MethodMain클래스에서 출력해보기
+    //1.객체가 정의되어야 한다
+    MethodExample m = new MethodExample();
+    
+    m.circleArea(5); //5=인자
+    
+    System.out.println(return);
+  ```
+--------------------
+문제 4. 원의 둘레를 구하는 circleRound메서드 정의 반지름은 외부에서 전달받는다
+ //원의둘레 : 2*3.14*반지름
+ //메서드 내부에서 둘레를 구하고 출력한 다음에 종료
+```java
+public void circleRound(double r2) {
+  System.out.println( 2*3.14*r2);
+
+  MethodMain클래스
+m.circleRound(5);
+```
+
+## 생성자 
+- 메모리에 객체를 올리는 역할
+- 객체의 필드를 초기화 해주는 역할
+### 기본생성자
+- 반환타입 없다
+- 생성자의 이름은 반드시 클래스명 
+  - **생성자 이름**
+  - 직관적인 이름 사용하기
+  - 가능한 초기화 시킬 필드 명과 동일한 이름을 사용하는 것이 좋다
+
+### 생성자의 오버로딩
+
+```java
+ex)
+public static void main(String[] args) {
+
+  Korean k1 = new Korean("박자바","011225-1234567");
+   
+  k1.printInfo();
+-----------------
+public class Korean {
+
+ //필드를 3개 갖고잇음
+ String nation = "대한민국";
+ String name ;
+ String ssn ;
+ 
+ //생성자 선언 반드시 클래스랑 이름이 같아야한다
+ public Korean(String name , String ssn) { 
+  this.name = name; //필드명과 동일한 이름, 
+  this.ssn = ssn; **필드와 지역변수를 구분하기 위해 this. 꼭 사용하기**
+ }                  ㄴ>this: 이 메서드를 호출 한 객체 자신을 의미한다
+ 
+ //객체의 정보를 출력하는 printInfo매서드 만들기
+ //국적,나이,주민번호
+ 
+ public void printInfo () {
+  System.out.println("국적: "+nation);
+  System.out.println("이름: "+name);
+  System.out.println("주민번호: "+ssn);
+```

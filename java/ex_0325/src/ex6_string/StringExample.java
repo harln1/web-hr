@@ -91,9 +91,7 @@ public class StringExample {
 		int count = 0;
 		
 		for (int i = 0; i< s.length() ;i++) {     //s.length() 문자열의 길이가 자동으로정해져서 들어옴 길이모를때사용
-			if (s.charAt(i)=='a') {
-				count++;
-			}
+			if (s.charAt(i)=='a') { }
 			
 		}
 		System.out.println("a의 갯수: " + count);

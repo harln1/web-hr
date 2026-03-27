@@ -1,0 +1,24 @@
+로또번호 구하기
+ 1 ~45사이의 난수를 발생시켜 로또번호 6자리를 만드는 코드 작성하기
+힌트.구한 로또번호를 배열에 담기
+      , 번호가 중복되는지 비교하기
+
+1.상자만들기
+int [] lotto = new int[6];  = 6칸 짜리 배열
+ 
+outer:for(int i = 0; i < lotto.length;) {
+         
+
+         lotto[i] = (int)(Math.random()*45+1);
+         
+        //중복이 있는지 검사
+        for(int j = 0; j < i; j++) {
+           //같은게 있다면
+           if(lotto[i] == lotto[j]) {
+              //다시 뽑아야한다.
+              continue outer;
+           }
+        }
+        System.out.println(lotto[i]+" ");
+         i++;
+}//outer
