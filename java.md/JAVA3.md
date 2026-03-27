@@ -452,3 +452,6 @@ public class Korean {
   System.out.println("이름: "+name);
   System.out.println("주민번호: "+ssn);
 ```
+## 인스턴스 멤버
+
+정적맴버(static)
