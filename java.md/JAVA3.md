@@ -307,6 +307,7 @@ public static void main(String[] args) {
 ```
 # 2026-03-27
 ## 메서드
+- 여러개 정의가 가능하다
 ### **retrun 밑에는 아무것도 없어야한다**
 ### 메서드 선언
 ```java
@@ -344,7 +345,7 @@ int [] values
 
  ```java
  ex)
- int plus (int x , int y){ //plus는 무조건 같기
+ int plus (int x , int y){ //plus (이름)는/은 무조건 같게
 
  }
  double plus(double x , double y){
@@ -421,19 +422,16 @@ m.circleRound(5);
   - 직관적인 이름 사용하기
   - 가능한 초기화 시킬 필드 명과 동일한 이름을 사용하는 것이 좋다
 
-### 생성자의 오버로딩
-
+### 생성자의 오버로딩 (overloading)
+- 같은 이름으로 서로 다른 개수, 타입의 매개변수를 각각 처리하는 방법
+- 매개변수의 개수가 다르거나,타입이 다르거나,순서가 달라야한다
+  - 반환형은 달라도 상관없음, 매서드(OR 생성자)명은 같아야한다
 ```java
 ex)
-public static void main(String[] args) {
-
-  Korean k1 = new Korean("박자바","011225-1234567");
-   
-  k1.printInfo();
------------------
+<class>
 public class Korean {
 
- //필드를 3개 갖고잇음
+ //필드를 3개 갖고있음
  String nation = "대한민국";
  String name ;
  String ssn ;
@@ -451,7 +449,69 @@ public class Korean {
   System.out.println("국적: "+nation);
   System.out.println("이름: "+name);
   System.out.println("주민번호: "+ssn);
+  ---------------------------------
+<main>
+public static void main(String[] args) {
+
+  Korean k1 = new Korean("박자바","011225-1234567");
+   
+  k1.printInfo();
 ```
 ## 인스턴스 멤버
 
-정적맴버(static)
+### 정적맴버(static)
+- 하나를 수정하면 공유하는 다른객체도 값이 바뀐다
+```java
+<class>
+public class Calculator {
+//static 키워드가 붙어있으면 메모리에 한번만 올라간다
+ //모든 객체가 static필드의 값을 공유한다
+
+ //원주율 파이 :3.141593
+ static double pi = 3.141592;
+
+ //외부에서 두 수를 받아 더하여 반환하는 plus 메서드 작성하기
+ static public int plus(int x, int y) {
+  return x+y;
+  
+ }
+ //외부에서 두 수를 받아 더하여 반환하는 minus 메서드 작성하기
+ static public int minus (int x, int y) {
+  return x-y;
+  ----------------------------------
+  <main>
+  public class calculatorMain {
+ public static void main(String[] args) {
+  //정적필드 , 정적 메서드는 객체 생성없이 호출가능하다
+  //사용방법
+  //클래스명.필드명
+  //클래스명.메서드명();
+  System.out.println(Calculator.pi);
+  
+  //클래스 객체 필드 메서드 생성자
+```
+### final 필드
+
+- 초기값이 저장되면 이것이 최종적이 값이 됨(초기값이 저장되면 프로그램 도중 수정 불가)
+
+# 2026-3-30
+
+## 접근제한자
+public : 모든접근허용 어디든지 사용가능
+private : 같은 패키지 내 다른 클래스 어디든지 사용가능
+protected: 현재 클래스 에서만 사용가능
+default
+필드,생성자,메서드,클래스에도 붙일수 있다
+
+## 디자인패턴
+- 객체를 하나만 만들어야하는 경우
+- 객체 생성이 너무 복잡한 경우
+- 기능은 비슷한데 구현 방법이 여러개인 경우
+- 객체들끼리 너무 강하게 연결되어있어 수정이 어려운경우
+
+=> 개발자들이 오랜시간 동안 많이 쓰인 설계방법을 정리해둔 것이 디자인 패턴
+- 깔끔하게 코드를 작성할수있다
+
+## 싱글톤 패턴
+- 
+

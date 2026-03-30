@@ -8,7 +8,7 @@ public class calculatorMain {
 		//클래스명.메서드명();
 		System.out.println(Calculator.pi);
 		
-		//클래스 객체 필드 메서드 생ㅇ성자
+		//클래스 객체 필드 메서드 생성자
 	}
 
 }
