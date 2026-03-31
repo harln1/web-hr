@@ -7,7 +7,20 @@ public class SmartPhoneExample {
 		 
 		 System.out.println("모델: " +myPhone.model);
 		 System.out.println("색상: " +myPhone.color);
-		 //객체를 만들면서 초기화를 하고싶ㅇㄹ떄
+		
+		 System.out.println("와이파이상태: "+myPhone.wifi);
+		 
+		 //Phone으로부터 상속받은 메서드 호출
+		 myPhone.bell();
+		 myPhone.sendMessage("여보세요");
+		 myPhone.receiveMessage("안녕하세요 저는 홍길동입니다");
+		 myPhone.sendMessage("아! 네 반갑습니다");
+		 myPhone.hashCode();
+	
+		 //SmartPhone의 메서드 호출
+		 myPhone.setWifi(true);
+		 myPhone.internrt();
+	
 	}
 
 }

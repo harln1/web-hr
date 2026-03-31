@@ -5,11 +5,12 @@ package ex6_inheritance;
 public class SmartPhone extends Phone{
 	
 	public boolean wifi;
+
+		
 	
 	public SmartPhone(String model , String color) {
 	//부모가 가지고 있는 필드를 자식 클래스에서 사용할 수 있다
-		this.model = model;
-		this.color = color;
+		super(model,color);
 		
 	}
 	

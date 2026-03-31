@@ -1,0 +1,8 @@
+package ex5_polymorphism.exam01;
+
+public class KumhoTire extends Tire {
+	@Override
+	public void roll() {
+		System.out.println("금호타이어 가 회전합니다");
+	}
+}
