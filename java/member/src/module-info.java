@@ -1,0 +1,5 @@
+module member{
+	
+	    exports member;
+	
+}

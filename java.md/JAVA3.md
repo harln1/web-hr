@@ -542,9 +542,9 @@ default
 
 ## 상속
 - 부모클래스의 필드나 메서드를 자식 클래스에서 사용할 수 있는것
+  - 관련 있는 것들 끼리 묶는것
 
 자식 클래스가 상속받을 클래스를 고른다
-
 ex)클래스명 extends 상속받을 클래스명{
 
 }
@@ -636,3 +636,137 @@ ex) Parent p = new Child(); // 1. 자동 타입 변환
 ```
 
 # 2026-04-01
+
+## Java 상속(IS-A)
+
+### 1. IS-A 관계 (상속)
+- "자식은 부모의 한 종류이다" (Dog is an Animal).
+- extends 키워드 사용.
+```java
+SchoolBus sb = new SchoolBus();
+System.out.println(sb instanceof Car); // true (SchoolBus는 Car이다)
+```
+
+### 2. N차 상속 (다단계)
+- Car → Bus → SchoolBus
+- 자식은 부모뿐만 아니라 조상의 필드와 메서드까지 모두 사용 가능.
+```java
+class Car { String power = "Engine"; }
+class Bus extends Car { int seats = 40; }
+class SchoolBus extends Bus { 
+    // power(조상), seats(부모) 모두 사용 가능
+}
+```
+
+### 3. Object 클래스
+- 자바 모든 클래스의 최상위 조상.
+- extends를 안 써도 자동 상속됨 (toString, equals 등 기본 제공).
+### 4. Arrays.toString(배열)
+- 배열의 주소값이 아닌 실제 데이터를 대괄호[] 형태로 출력할 때 사용.
+```java
+Object,Arrays.toString
+int[] arr = {1, 2, 3};
+System.out.println(arr);           // [I@... (주소값)
+System.out.println(Arrays.toString(arr)); // [1, 2, 3] (실제 값)
+```
+
+### 5. Sealed & Permits (상속 제한)
+- **sealed**: 클래스 봉인 (아무나 상속 불가).
+- **permits**: 상속을 허용할 자식 클래스를 직접 지정.
+- 허락받은 자식은 final, non-sealed, sealed 중 하나를 반드시 선언해야 함
+
+```java
+// Car는 Bus만 상속 허용
+sealed class Car permits Bus { }
+
+// 허락받은 Bus는 아래 3가지 중 하나로 선언 필수
+final class Bus extends Car { }         // 더 이상 상속 불가
+// non-sealed class Bus extends Car { } // 다시 누구나 상속 가능하게 개방
+// sealed class Bus extends Car permits ... { } // 계속 봉인 유지
+```
+
+### 6.인터페이스
+- 일반필드 X
+- 상수 , 추상메서드 , 디폴트메서드, 정적메서드 , private메서드
+  - 동작에 대한 가이드라인 제공
+- 같은 범주에 있는 것들이 아니여도됌
+```java
+fly();
+class Bird{};
+class Airplane{};
+```
+
+- 추상 클래스와 마찬가지로 직접 객체를 만드는것이 불가능하다
+- 인터페이스를 구현할 클래스가 있어야한다
+```java
+class Impl implements 인터페이스명{};
+```
+ 
+
+# 2026-04-02
+
+## 1.인스턴스 멤버 클래스
+- 바깥 객체가 있어야 생성이 가능하디.
+```java
+package ex1_innerclass.instanceclass;
+
+//1.클래스내부에서만 쓰는 전용 객체
+//- 외부에 공개할 필요가 없는경우
+public class Car {
+ 
+ //인스턴스 내부 클래스
+ private class Engine{
+  void start() {
+   System.out.println("엔진 시동");
+  }
+ }
+ //Engine  클래스는 Car내부에만 의미가 있음 외부에 노출할 필요가 없음
+ void run() {
+  Engine engine = new Engine();
+  -------------
+  main
+  public class Main {
+ public static void main(String[] args) {
+  Car c = new Car();
+  c.run();//다른 사용자는 이 메서드를 실행만 할뿐 안에 어떻게 되어있는지 모른다
+ }
+ }
+
+}
+```
+## 2.정적 멤버 클래스
+- 내부클래스인데 Static이 붙은 형태
+- 바깥 객체에 소속된 내부 클래스 처럼 보이지만,
+  바깥 객체가 없어도 독립적으로 만들수 있는 내부클래스
+```java
+public class Outer {
+
+ int a = 10; //일반필드(멤버변수)
+ static int b = 20; //정적필드(클래스변수)
+ 
+ static class Inner {
+        void print() {
+            // System.out.println(a); // [에러] static은 인스턴스 변수에 직접 접근 불가
+            System.out.println(b);    // [성공] static 멤버끼리는 접근 가능
+        }
+  
+        void print(Outer outer) {
+            System.out.println(outer.a); // [성공] 전달받은 'user' 객체의 a를 출력
+```
+## 지역 내부 클래스
+- 외부 클래스의 메서드 안에 선언되고, 그 메서드 안에서만 사용되는 클래스
+```java
+public class Outer {
+ int num = 10;
+ void method() {
+  //지역내부클래스
+  class Local{
+   void print() {
+    //바깥 클래스의 필드와 메서드를 사용할수있다
+    System.out.println(num);
+     }
+  }
+  Local local = new Local();
+  local.print();
+
+```
