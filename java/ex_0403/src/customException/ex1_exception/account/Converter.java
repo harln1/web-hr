@@ -1,5 +1,4 @@
-package ex1_exception.throwsexample;
-
+package customException.ex1_exception.account;
 
 public class Converter {
 	/*
@@ -20,3 +19,5 @@ public class Converter {
 
 
 }
+
+

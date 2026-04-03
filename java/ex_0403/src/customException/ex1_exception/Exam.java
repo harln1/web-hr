@@ -1,9 +1,10 @@
-package ex1_exception;
+package customException.ex1_exception;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Exam {
+
 	public static void main(String[] args) {
 		//키보드에서 정수를 입력받고, 정수이외의 값이 입력되면"정수만입력가능"이라는 메시지 출력
 		Scanner sc = new Scanner(System.in);
@@ -35,3 +36,4 @@ public class Exam {
 	}
 
 }
+

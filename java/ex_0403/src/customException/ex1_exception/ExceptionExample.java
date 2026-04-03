@@ -1,4 +1,4 @@
-package ex1_exception;
+package customException.ex1_exception;
 
 import java.util.Scanner;
 

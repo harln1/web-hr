@@ -1,4 +1,4 @@
-package customException;
+package customException.ex1_exception;
 
 public class InsufficientException extends Exception{
 	

@@ -1,4 +1,4 @@
-package customException;
+package customException.ex1_exception;
 
 public class Account {
 	private long balance;  

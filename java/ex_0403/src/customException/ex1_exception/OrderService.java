@@ -1,6 +1,7 @@
-package customException;
+package customException.ex1_exception;
 
 public class OrderService {
+	//총 금액 계산
 	
 	//IllegalArgumentException예외를 강제로 발생
 

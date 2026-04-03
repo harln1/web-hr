@@ -1,6 +1,7 @@
-package ex1_exception;
+package customException.ex1_exception;
 
 public class CatchExample {
+
 	public static void main(String[] args) {
 		//catch메서드는 시스템으로부터 넘어오는 예외 객체를 받아서 처리한다
 		

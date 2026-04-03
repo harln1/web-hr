@@ -1,8 +1,8 @@
-package ex1_exception.resource;
+package customException.ex1_exception.resource;
 
-public class MyResource implements AutoCloseable{
-	
-	private String name;
+public class MyResource implements AutoCloseable {
+
+private String name;
 	
 	//생성자를 통해 name필드 초기화하기
 	//리소스를 열였다고 가정
@@ -26,3 +26,4 @@ public class MyResource implements AutoCloseable{
 	}
 
 }
+

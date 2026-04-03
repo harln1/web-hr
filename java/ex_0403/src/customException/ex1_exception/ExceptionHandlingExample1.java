@@ -1,4 +1,5 @@
-package ex1_exception;
+package customException.ex1_exception;
+
 //NullPointException:참조변수가 null인 상태에서 필드나 메서드에 접근할 경우 발생하는 예외
 public class ExceptionHandlingExample1 {
 	//문자열데이터를 전달받아 문자열 길이가 얼만지 출력하는 메서드 정하기

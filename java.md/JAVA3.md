@@ -878,4 +878,22 @@ public class CarExample {
 
 # 2024-04-03
 
+package product;
 
+public class Main {
+    public static void main(String[] args) {
+        // 1. Product 객체 3개 생성
+        Product p1 = new Product("키보드", 5000, 10);
+        Product p2 = new Product("마우스", 15000, 20);
+        Product p3 = new Product("모니터", 105000, 100);
+
+        // 2. 객체들을 배열에 저장
+        Product[] products = {p1, p2, p3};
+
+        // 3. 반복문으로 모든 상품 정보 출력
+        System.out.println("=== 전체 상품 정보 ===");
+        for (int i = 0; i < products.length; i++) {
+            products[i].showInfo();
+        }
+    }
+}

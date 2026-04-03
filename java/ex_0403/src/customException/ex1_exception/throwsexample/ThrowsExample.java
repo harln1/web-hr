@@ -1,6 +1,7 @@
-package ex1_exception.throwsexample;
+package customException.ex1_exception.throwsexample;
 
 public class ThrowsExample {
+
 	public static void main(String[] args) {
 		try {
 			findClass();

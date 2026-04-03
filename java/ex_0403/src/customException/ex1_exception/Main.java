@@ -1,4 +1,4 @@
-package customException;
+package customException.ex1_exception;
 
 import java.util.Scanner;
 
@@ -28,7 +28,8 @@ public class Main {
             System.out.println("숫자 형식 오류");
         } catch (IllegalArgumentException e) {
            
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()); 
+            
         }
         
     }
