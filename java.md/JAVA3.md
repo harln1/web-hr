@@ -706,7 +706,21 @@ class Impl implements 인터페이스명{};
 # 2026-04-02
 
 ## 1.인스턴스 멤버 클래스
-- 바깥 객체가 있어야 생성이 가능하디.
+
+- 바깥 객체가 있어야 생성이 가능하다.
+```java
+public class Outer{
+ private String name; //필드
+
+ //인스턴스 멤버 클래스
+ public class Inner{
+  private String name;
+ }
+}
+```
+
+### 인스턴스 내부 클래스
+
 ```java
 package ex1_innerclass.instanceclass;
 
@@ -770,3 +784,98 @@ public class Outer {
   local.print();
 
 ```
+
+## 익명 클래스
+
+- 말 그대로 이름이 없는 클래스를 말한다.
+- 명시적으로 클래스를 선언하지 않기 때문에 쉽게 객체를 생성할 수 있다는 장점이 있다.
+- 주로 **필드값, 로컬 변수 값, 매개변수값**으로  사용된다.
+- 클래스를 상속해서 만들 경우 **익명 자식 객체**라고 한다.
+- 인터페이스를 구현해서 만들 경우 **익명 구현 객체**라고 한다.
+
+### 익명 자식 객체
+
+- 익명 자식 객체는 부모 클래스를 상속받아 다음과 같이 생성된다.
+- 이렇게 생성된 객체는 부모 타입의 필드, 로컬 변수, 매개변수의 값으로 대입할 수 있다.
+
+```java
+new 부모생성자(매개값,...){
+ //필드
+ //메소드
+}
+```
+
+```java
+package ch09.sec07.exam01;
+
+public class Tire {
+ public void roll() {
+  System.out.println("일반 타이어가 굴러갑니다.");
+ }
+}
+package ch09.sec07.exam01;
+
+public class Car {
+ //필드에 Tire 객체 대입
+ private Tire tire1 = new Tire();
+
+ //필드에 익명 자식 객체 대입
+ private Tire tire2 = new Tire() {
+  @Override
+  public void roll() {
+   System.out.println("익명 자식 Tire 객체 1이 굴러갑니다.");
+  }
+ };
+
+ //메소드(필드 이용)
+ public void run1() {
+  tire1.roll();
+  tire2.roll();
+ }
+
+ //메소드(로컬 변수 이용)
+ public void run2() {
+  //로컬 변수에 익명 자식 객체 대입
+  Tire tire = new Tire() {
+   @Override
+   public void roll() {
+    System.out.println("익명 자식 Tire 객체 2가 굴러갑니다.");
+   }
+  };
+  tire.roll();
+ }
+
+ //메소드(매개변수 이용)
+ public void run3(Tire tire) {
+  tire.roll();
+ }
+}
+
+package ch09.sec07.exam01;
+
+public class CarExample {
+ public static void main(String[] args) {
+  //Car 객체 생성
+  Car car = new Car();
+  
+  //익명 자식 객체가 대입된 필드 사용
+  car.run1();
+   
+  //익명 자식 객체가 대입된 로컬변수 사용
+  car.run2();
+  
+  //익명 자식 객체가 대입된 매개변수 사용
+  car.run3(new Tire() {
+   @Override
+   public void roll() {
+    System.out.println("익명 자식 Tire 객체 3이 굴러갑니다.");
+   }
+  });
+ }
+}
+
+```
+
+# 2024-04-03
+
+
