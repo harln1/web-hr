@@ -878,22 +878,160 @@ public class CarExample {
 
 # 2024-04-03
 
-package product;
+## 예외 처리 
+### 1. 예외 처리의 3단계 구조 (try-catch-finally)
+- 프로그램이 예기치 않게 멈추는 것을 방지하고 안전하게 종료하기 위한 기본 틀입니다.
+- 키워드 역할 비유 특징
+- **try** 감시 "사고 발생 주의" 예외가 발생할 가능성이 있는 코드를 배치합니다.
+- **catch** 수습 "119 구조대" 발생한 예외를 잡아 처리합니다. (매개변수 e로 정보 확인)
+- **finally** 마무리 "뒷정리" 무조건 실행. DB 연결 종료나 파일 닫기 등 자원 해제에 사용합니다.
 
-public class Main {
-    public static void main(String[] args) {
-        // 1. Product 객체 3개 생성
-        Product p1 = new Product("키보드", 5000, 10);
-        Product p2 = new Product("마우스", 15000, 20);
-        Product p3 = new Product("모니터", 105000, 100);
+#### 💡 핵심 포인트
+- Exception e: 
+  - 모든 예외의 조상님입니다. 어떤 에러든 다 잡을 수 있지만, 디버깅을 위해 구체적인 예외 타입을 쓰는 것이 좋습니다.
+- 실행 흐름:
+  정상: try → finally
+  예외: try(중단) → catch → finally
 
-        // 2. 객체들을 배열에 저장
-        Product[] products = {p1, p2, p3};
+### 2. 예외 던지기 (throws vs throw)
+- 예외를 일부러 발생시키거나, 처리를 뒤로 미룰 때 사용합니다.
 
-        // 3. 반복문으로 모든 상품 정보 출력
-        System.out.println("=== 전체 상품 정보 ===");
-        for (int i = 0; i < products.length; i++) {
-            products[i].showInfo();
-        }
+#### 🥊 throw (폭탄 던지기)
+- 위치: 메서드 내부
+- 용도: 특정 조건에서 개발자가 직접 예외를 발생시킬 때 사용합니다.
+- 예시: throw new IllegalArgumentException("나이 오류");
+#### 🔄 throws (폭탄 돌리기)
+- 위치: 메서드 선언부
+- 용도: "내 안에서 에러가 날 수 있으니, 나를 부르는 네가 처리해!"라고 예고합니다.
+- 예시: public void read() throws IOException { ... }
+
+#### 3. 사용자 정의 예외 (Custom Exception)
+- 표준 예외(NullPointer 등) 외에 우리 프로그램만의 특별한 규칙(예: 잔액 부족, 아이디 중복)이 필요할 때 만듭니다.
+- 제작 및 사용 순서
+  클래스 생성: Exception(필수 처리) 또는 RuntimeException(선택 처리)을 상속받습니다.
+  생성자 구현: 부모 클래스(super)에 에러 메시지를 전달합니다.
+  사용: 조건문에서 throw로 예외를 던지고, 호출부에서 try-catch로 잡습니다.
+```java
+// 1. 커스텀 예외 정의
+public class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message);
     }
 }
+
+// 2. 사용 및 던지기
+public void checkAge(int age) throws InvalidAgeException {
+    if (age < 0) throw new InvalidAgeException("음수 나이 불가: " + age);
+}
+```
+
+### 📝 한 줄 요약
+"try-catch로 직접 고치거나, throws로 넘기거나, throw로 문제를 제기하라!"
+
+## 2026-04-06
+
+## lombok
+1. lombok 구글검색
+2. 다운로드
+3. lombok를 이클립스 담겨진 파일에 넣기
+4. 우클릭 -> 터미널열기
+5. java -jar (파일명적기->)lombok.jar
+6. Project Lombok 창 뜸 -> Specity location...눌러서 이클립스 (동그라미) 눌르기
+-> 인스털트업데이트? 오른쪽꺼 누르기 ->끝 -> 이클립스 껏다 다시 켜기
+
+1. 이클립스들가기
+2. 프로젝트 만들고 프로젝트안에폴더 만들기-> 롬복 ctrl+c ,폴더만든거에 ctrl+v
+3. 폴더 우클릭-> Build Path->Add to Build Path 클릭
+
+### lombak  써보기
+
+1. module ex_0406 {
+ requires lombok;
+}
+3. 
+@Setter
+@Getter
+@ToString:오버라이딩 기능을 제공
+@NoArgsConstructor :기본생성자
+@AllArgsConstructor:모든 필드(변수)를 매개변수를 갖는 생성자
+@RequiredArgsConstructor : final또는 @NonNull이 붙은 필드만 매매변수로 갖는 생성자
+@Data :Getter Setter, hashCode(),eqyaks(),toString() 메서드가 자돋으로 생성
+
+## 운영체제와 사용자 정보 출력
+main 안에
+### 운영체제 이름
+  String **osName** = System.getProperty("os.name");
+
+### 사용자 이름
+
+  String **userName** = System.getProperty("user.name");
+
+### 사용자 홈 티렉터리 경로
+  String userHome = System.getProperty("user.hjome");
+  
+출력하기.
+  System.out.println(osName);
+  System.out.println(userName);
+  System.out.println(userHome);
+
+## Math (수학 함수)
+```java
+Math.abs(-10);          // 10 (절대값)
+Math.ceil(5.3);         // 6.0 (올림)
+Math.floor(5.8);        // 5.0 (내림)
+Math.round(5.5);        // 6 (반올림, 정수반환)
+Math.max(10, 20);       // 20 (최대값)
+Math.random();          // 0.0 ~ 1.0 미만 실수
+// 공식: (int)(Math.random() * 개수) + 시작값
+```
+
+## 1. StringBuilder (문자열 수정)
+- String과 달리 데이터를 계속 더해도 메모리 낭비가 없다.
+```java
+StringBuilder sb = new StringBuilder("Java");
+sb.append(" Study");    // "Java Study" (뒤에 추가)
+sb.insert(0, "Hi ");    // "Hi Java Study" (특정 위치 삽입)
+sb.delete(0, 3);        // 인덱스 0~2 삭제
+sb.reverse();           // 문자열 뒤집기
+String result = sb.toString(); // 최종 String으로 변환
+```
+
+## 2. Wrapper 클래스 (기본타입 ↔ 객체)
+- 주로 문자열을 숫자로 바꿀 때 사용한다.
+```java
+int num = Integer.parseInt("100");      // 문자열 -> int
+double dNum = Double.parseDouble("3.14"); // 문자열 -> double
+
+Integer obj = 10; // 박싱 (기본 -> 객체)
+int val = obj;    // 언박싱 (객체 -> 기본)
+```
+
+## 1. 날짜/시간 (LocalDate, LocalTime, LocalDateTime)
+```java
+LocalDate.now();              // 날짜 (2024-05-20)
+LocalTime.now();              // 시간 (14:30:15)
+LocalDateTime now = LocalDateTime.now(); // 날짜+시간
+
+now.getYear();                // 연도 추출
+now.plusDays(10);             // 10일 뒤 (새 객체 반환)
+now.withMonth(12);            // 12월로 변경 (새 객체 반환)
+
+// 포맷 적용
+DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+now.format(fmt);
+```
+
+## 1. 정규표현식 (Regex)
+- 문자열이 형식이 맞는지 검사할 때 사용한다.
+```java
+String str = "java123";
+String regExp = "^[a-z][a-z0-9]{4,11}$"; // 소문자시작, 숫자혼용, 5~12자
+
+boolean isMatch = str.matches(regExp); // true/false 반환
+```
+
+^[0-9]+$ : 숫자만 (1개 이상)
+^[a-zA-Z]+$ : 영문자만
+\\d : 숫자 ([0-9]와 같음)
+\\w : 알파벳+숫자
+

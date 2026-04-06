@@ -19,7 +19,6 @@ public class Member2 {
         if (obj instanceof Member2) {
             Member2 target = (Member2) obj; 
             
-            
             if (this.id.equals(target.id)) {
                 return true;
             }
