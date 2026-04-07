@@ -1007,6 +1007,32 @@ int val = obj;    // 언박싱 (객체 -> 기본)
 ```
 
 ## 1. 날짜/시간 (LocalDate, LocalTime, LocalDateTime)
+### LocalDateTime
+- 날짜와 시간을 읽고 조작하기 위해 사용
+- 시간을 관리하는 자료형
+- 객체를 직접 만들지는 않음
+### LocalDateTime.now()
+- 현재 날짜와 시간을 반환
+- of(년 월 일 시 분): 특정날짜생성
+
+  - getYrar()
+  - getMonth()
+  - getDayOfMonth()
+  - getHour()
+  - getSecond()
+
+  - withYear()
+  - withHour() 날짜나 시간을 수정하는것도 가능하다
+
+  - isBefore()
+  - isAfter()
+  - isEqual()
+
+  - LocalDate: 생일, 기념일 등 (시간 필요 없을 때)
+  - LocalTime: 출근 시간, 알람 등 (날짜 필요 없을 때)
+  - LocalDateTime: 게시물 작성 시각, 로그 기록 등 (둘 다 필요할 때)
+  - ChronoUnit: 디데이(D-Day)나 근속 연수 계산할 때
+
 ```java
 LocalDate.now();              // 날짜 (2024-05-20)
 LocalTime.now();              // 시간 (14:30:15)
@@ -1020,18 +1046,125 @@ now.withMonth(12);            // 12월로 변경 (새 객체 반환)
 DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 now.format(fmt);
 ```
+#### 날짜 차이 계산하기 (ChronoUnit)
+isBefore, isAfter는 선후 관계만 알 수 있지만, "정확히 며칠이나 차이 날까?"가 궁금할 때 자바에서는 ChronoUnit을 씁니다.
+```java
+LocalDateTime start = LocalDateTime.of(2024, 1, 1, 0, 0);
+LocalDateTime end = LocalDateTime.now();
 
+// 두 날짜 사이의 '일'수 차이 계산
+long daysBetween = ChronoUnit.DAYS.between(start, end);
+// 두 날짜 사이의 '개월'수 차이 계산
+long monthsBetween = ChronoUnit.MONTHS.between(start, end);
+
+System.out.println("D-Day: " + daysBetween);
+```
 ## 1. 정규표현식 (Regex)
 - 문자열이 형식이 맞는지 검사할 때 사용한다.
+
 ```java
 String str = "java123";
 String regExp = "^[a-z][a-z0-9]{4,11}$"; // 소문자시작, 숫자혼용, 5~12자
 
 boolean isMatch = str.matches(regExp); // true/false 반환
 ```
-
+a-z:소문자
+A-Z:대문자
+0-9:0부터9까지
+? :없거나 한개
++ :한개거나 이상
+[]:안에 적힌것중 한개 ex)[abc]->a,b,c중 한글자
+[가-힣] : 한글전체
 ^[0-9]+$ : 숫자만 (1개 이상)
 ^[a-zA-Z]+$ : 영문자만
 \\d : 숫자 ([0-9]와 같음)
 \\w : 알파벳+숫자
+```java
+ 이메일 형식 검사
+  아이디부분 : 영문,숫자,_
+  도메인포함
+  예시 : test01@gmail.com
 
+  str= "test01@gmail.com";
+  regExp = "[a-zA-Z0-9]+@[a-z0-9]+.[a-z]{2,}";
+       
+   System.out.println(str.matches(regExp));
+
+```
+
+# 2026-04-07
+
+## 1. StringTokenizer (문자열 분리)
+- split() 메서드와 비슷하지만, 구분자가 많거나 성능이 중요할 때 더 유리합니다.
+- countTokens(): 현재 남아있는 토큰(단어)의 개수를 반환합니다.
+- hasMoreTokens(): 꺼낼 토큰이 더 있는지 확인(T/F)합니다. 주로 while문과 함께 씁니다.
+- nextToken(): 다음 토큰을 하나씩 꺼내옵니다.
+
+## 2. Wrapper 클래스 (기본 타입을 객체로!)
+- int, double 같은 기본형 데이터를 Object처럼 객체로 다뤄야 할 때 사용합니다.
+- Integer, Double, Character,Character :문자형
+- Parsing: Integer.parseInt("10")처럼 문자열을 숫자로 바꿀 때 가장 많이 씁니다.
+- Box/Unbox: 숫자 10을 Integer 객체로 자동으로 바꿔주는 기능(Autoboxing) 덕분에 요즘은 편하게 섞어 씁니다.
+```java
+int → Integer (Full name)
+char → Character (Full name)
+
+박싱(Boxing) & 언박싱(Unboxing):
+Integer num = 10; (기본형을 객체로 자동 변환 - 오토박싱)
+int n = num; (객체를 기본형으로 자동 변환 - 오토언박싱)
+요즘 자바는 이 과정을 자동으로 해주기 때문에 마치 같은 타입처럼 섞어서 쓸 수 있습니다.
+```
+## 3. Math 클래스 (수학 계산)
+- System 클래스처럼 모든 메서드가 static이라 객체 생성 없이 바로 씁니다.
+- Math.abs(): 절대값
+- Math.max(a, b) / min(a, b): 최대/최소값
+- Math.random(): 0.0 ~ 1.0 사이의 난수 발생 (가장 활용도 높음)
+- Math.round(): 반올림
+
+## 4. Arrays 클래스 (배열 도우미)
+- 배열을 직접 반복문 돌려 처리하기 귀찮을 때 씁니다.
+  - Arrays.sort(): 배열을 순식간에 오름차순 정렬해줍니다.
+  - Arrays.toString(): 배열 안의 내용을 한눈에 보기 좋게 [1, 2, 3] 형태로 출력해줍니다.
+
+## 리플렉션
+- 메타정보를 `class객체` 로  관리한다
+
+## 제네릭타입
+```java
+package ex3_generic;
+
+public class GenEx<T> {
+
+ //제네릭타입의 변수 value;
+ T value;
+ //value 값을 반환하는 getValue();
+ public T getValue() {
+  return value;
+ }
+ //value값을 세팅하는 setValue();
+ public void setValue(T value) {
+  this.value = value;
+ }
+}
+--------------------------
+package ex3_generic;                                                                      
+public class Main {
+ public static void main(String[] args) {
+  GenEx<String> v1 = new GenEx<String>();
+  
+  v1.setValue("Java");
+  System.out.println(v1.getValue());
+  
+  //제네릭 타입이 정수인객체 v2
+  //값 넣고 출력
+  GenEx<Integer> v2 = new GenEx<Integer>();
+  v2.setValue(123);
+  System.out.println(v2.getValue());
+  
+  //제네릭 타입이 문자형인 객체v3
+  GenEx<Character> v3 = new GenEx<Character>();
+  v3.setValue('A');
+  System.out.println(v3.getValue());
+  
+ }
+```
