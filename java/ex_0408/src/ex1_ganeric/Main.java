@@ -58,7 +58,7 @@ public class Main {
     		total += n.doubleValue();
     	}
     	return total;
-    }
+    } 
     
     
     
