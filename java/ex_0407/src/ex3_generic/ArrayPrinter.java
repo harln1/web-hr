@@ -1,5 +1,6 @@
+ 
 package ex3_generic;
-
+ 
 import java.util.Iterator;
 
 public class ArrayPrinter {

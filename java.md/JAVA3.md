@@ -1168,3 +1168,47 @@ public class Main {
   
  }
 ```
+
+# 2026-04-08
+
+## 일반 객체의 생성
+- Car car = new Car(); >>컴파일 시점에 클래스가 확정
+- Class clazz = Class.forName("클래스명"); >> 실행중에 클래스 결정이 가능
+
+언제 사용할까?
+  - 플러그인 : 기본 프로그램에 외부 기능을 끼워넣는 것 (롬복 추가 와 비슷,도움이되는 외부기능을 따로 설치해서 추가하는 느낌)
+    - 메인 프로그램 : 이미지 편집기
+    - 외부 플러그인 : 흑백필터 , 블러필터 , 선명한필터
+
+LOG(로그):프로그램이 실행 되면서 남기는 기록
+- 사용자가 로그인을 시도했을때
+- 주문내역을 저장했을때
+- 에러가 발생했을때 
+
+## 어노테이션
+
+### 메타 어노테이션 (Meta-Annotation)
+- @Retention: 어노테이션이 언제까지 살아남을지(유지 범위) 결정합니다.
+  RetentionPolicy.SOURCE: 소스 코드에만 있고 컴파일 시 사라짐.
+  RetentionPolicy.CLASS: 클래스 파일까지는 남지만 실행 시에는 참조 불가.
+  RetentionPolicy.RUNTIME: (가장 많이 사용) 실행 중(Runtime)에도 리플렉션을 통해 정보를 읽을 수 있음.
+- @Target: 어노테이션을 어디에 붙일지(적용 대상) 결정합니다.
+  ElementType.TYPE: 클래스, 인터페이스, Enum.
+  ElementType.FIELD: 변수(필드).
+  ElementType.METHOD: 메서드.
+### 2. 나만의 어노테이션 (Custom Annotation)
+- 직접 만들 때는 @interface를 사용하고, 위에 공부한 메타 어노테이션을 붙여줍니다.
+```java
+import java.lang.annotation.*;
+
+@Retention(RetentionPolicy.RUNTIME) // 실행 중에도 읽을 수 있게 설정
+@Target(ElementType.METHOD)        // 메서드에만 붙일 수 있게 설정
+public @interface MyAnnotation {
+    String value() default "기본값"; // 속성을 정의할 수 있음
+    int count() default 1;
+}
+```
+### 제네릭
+- 타입을 미리 고정하지 않고 나중에 정할수 있게 만드는 문법
+- 어떤 타입이든 담을수 있는 틀을 만든뒤, 사용할때 타입을 정하는 방식이다.
+
