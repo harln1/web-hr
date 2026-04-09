@@ -1212,3 +1212,75 @@ public @interface MyAnnotation {
 - 타입을 미리 고정하지 않고 나중에 정할수 있게 만드는 문법
 - 어떤 타입이든 담을수 있는 틀을 만든뒤, 사용할때 타입을 정하는 방식이다.
 
+# 2026-04-09
+## List 컬렉션의 2가지 핵심 특징
+- 순서 유지: 데이터를 넣은 순서대로 저장되며, 인덱스(0, 1, 2...)로 접근할 수 있습니다.
+- 중복 허용: 동일한 값(객체)을 여러 번 저장할 수 있습니다.
+
+## 🛠️ 꼭 외워야 할 주요 구현체 (Class)
+- 가장 많이 쓰이는 두 가지를 상황에 맞춰 골라 써야 합니다.
+- `ArrayList`: 가장 대중적,  내부적으로 배열을 사용하여 데이터 검색이 매우 빠름, 하지만 중간에 데이터를 넣거나 뺄 때는 뒤의 데이터를 밀거나 당겨야 해서 속도가 느려질 수 있습니다.
+- `LinkedList`: 데이터들이 서로 앞뒤로 연결된 형태입니다. 추가나 삭제가 빈번할 때 유리하지만, 특정 데이터를 찾는 검색 속도는 ArrayList보다 느립니다.
+
+## 📝 자주 쓰는 필수 메서드 (암기 추천)
+`1. add (넣고)`
+`2. get (꺼내고)`
+`3. size (몇 개지?)`
+
+- **add(E e)**: `<추가>` 데이터를 리스트 맨 끝에 넣을 때
+  `list.add("데이터");`
+- **add(int index, E e)**: `<중간 삽입>` 원하는 특정 위치(인덱스)에 데이터를 끼워 넣을 때
+  `list.add(1, "새 데이터"); (1번 자리에 삽입, 뒤는 밀려남)`
+- **set(int index, E e)**: `<치환>` 특정 위치의 데이터를 다른 데이터로 바꿀 때
+  `list.set(0, "바꿀 데이터"); (0번 자리를 덮어씀)`
+- **get(int index)**: `<반환/가져오기>` 특정 위치에 있는 데이터를 꺼내서 볼 때
+  `String value = list.get(2); (2번 자리 데이터 읽기)`
+- **remove(int index)**: `<삭제>` 특정 위치의 데이터를 지울 때
+  `list.remove(0); (0번 데이터 삭제, 뒤는 당겨짐)`
+- **clear()**: `<전체 삭제>` 리스트 안의 모든 데이터를 한꺼번에 지울 때
+  `list.clear();`
+- **size()**: `<크기 확인>` 리스트에 데이터가 총 몇 개 들어있는지 확인할 때
+  `int count = list.size();`
+- **contains(Object o)**: `<검색>` 리스트 안에 특정 데이터가 들어있는지 확인할 때 (T/F)
+  `boolean hasData = list.contains("데이터");`
+
+```java
+package ex1_List.ArrayList;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListExample {
+ 
+ public static void main(String[] args) {
+  List<String> list = new ArrayList<String>();
+  
+  //리스트에 데이터 추가(add)하기
+  list.add("A");
+  list.add("B");
+
+  if (list.add("C")) {
+   System.out.println("데이터가 정상적으로 추가 되었습니다");
+  }else {
+   System.out.println("데이터가 정상적으로 추가 되지않았습니다");
+  }
+
+  //내가 원하는위치에 데이터넣기
+  list.add(1,"데이터"); //1번자리에 데이터 들어감 [A, 데이터, B, C]
+  
+  //데이터 값 바꾸기 (set)
+  list.set(1,"D");//[A, D, B, C]
+  
+  //리스트에 들어있는 데이터를 하나만 꺼내기
+  String s = list.get(0);
+  System.out.println(s);//A
+  
+  //리스트의 출력
+  System.out.println(list);
+ }
+
+}
+```
+
+
+

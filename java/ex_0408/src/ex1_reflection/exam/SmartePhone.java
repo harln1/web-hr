@@ -16,7 +16,7 @@ public class SmartePhone {
 	public static void main(String[] args) {
 		SmartePhone smartephone = new SmartePhone("iPhone", 100);
 		
-		smartephone.showInfo();//showInfo() 메서드는 반환 타입이 void 그냥 sysout에 넣지 않고 이렇게 만 써서 출력
+		smartephone.showInfo();//showInfo() 메서드는 반환 타입이 void   그냥 sysout에 넣지 않고 이렇게 만 써서 출력
 		
 	}
 
