@@ -20,22 +20,29 @@ public class Main {
          int choice = sc.nextInt();
          sc.nextLine(); // 버퍼 제거
          
-         if(choice == 1) {
-            System.out.print("상품명 : ");
-            String name= sc.nextLine();
-            
-            System.out.print("가격 : ");
-            int price = sc.nextInt();
-            
-            System.out.print("수량 : ");
-            int quantity = sc.nextInt();
-            
-            cart.addProduct(name, price, quantity);
-            
+         if (choice == 1) {
+             System.out.print("상품명 : ");
+             String name = sc.nextLine();
+             System.out.print("가격 : ");
+             int price = sc.nextInt();
+             System.out.print("수량 : ");
+             int quantity = sc.nextInt();
+             cart.addProduct(name, price, quantity);
 
-         }else if(choice == 0) {
-        	 System.out.println("프로그램 종료");
-         }break;
-      }
-   }
+         } else if (choice == 2) {
+             cart.printCart();
+         }else if(choice == 3) {
+        	 cart.pritTotalPrice();
+         }else if(choice ==4) {
+        	 System.out.println("삭제할 상품 명");
+        	 String name=sc.nextLine();
+        	 cart.removeProduct(name);
+        	 
+         } else if (choice == 0) {
+             System.out.println("프로그램 종료");
+             break; 
+         }
+     }
+    
+ }
 }
