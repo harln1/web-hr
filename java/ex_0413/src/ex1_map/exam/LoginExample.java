@@ -2,6 +2,7 @@ package ex1_map.exam;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class LoginExample {
 	public static void main(String[] args) {
@@ -19,8 +20,27 @@ public class LoginExample {
 		users.put("admin", "1234");
 		users.put("user1", "abcd");
 		users.put("guest", "1111");
-		
-		
-	}
 
+		Scanner sc = new Scanner(System.in);
+		System.out.print("아이디: ");
+		String id = sc.next();
+		System.out.print("비밀번호: ");
+		String pw = sc.next();
+
+		
+		if (!users.containsKey(id)) {    
+			
+			System.out.println("아이디가 존재하지 않습니다.");
+		} else {
+			
+			if (users.get(id).equals(pw)) {
+				
+				System.out.println("로그인 성공");
+			} else {
+				
+				System.out.println("비밀번호 오류입니다.");
+			}
+		}
+
+	}
 }
