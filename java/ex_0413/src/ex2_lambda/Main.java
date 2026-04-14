@@ -22,7 +22,7 @@ public class Main {
 		public void run() {
 			System.out.println();
 			
-		}
+		} 
 	};
 	pn.run();
 	

@@ -1,6 +1,6 @@
 package ex1_map.exam;
 
-////***- 
+
 import java.util.HashMap;
 import java.util.Map;
 
