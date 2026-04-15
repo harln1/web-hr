@@ -1,10 +1,10 @@
 package ex3_collection;
-
+//product 클래스로 만들어진 객체-> 하나의 상품
 public class Product {
-	private String code;
-	private String name;
-	private int price;
-	private int stock;
+	private String code;//제품코드
+	private String name;//제품명
+	private int price;//가격
+	private int stock;//재고
 
 	public Product(String code,String name,int price,int stock) {
 		this.code = code;
@@ -23,6 +23,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{code='" + code + "', name='" + name + "', price=" + price + ", stock=" + stock + "}";
+//        return "Product{code='" + code + "', name='" + name + "', price=" + price + ", stock=" + stock + "}";
+    	return String.format("Product{code%=s,name%=s,price=%d,stock=%d"+code,name,price,stock);
     }
 }
