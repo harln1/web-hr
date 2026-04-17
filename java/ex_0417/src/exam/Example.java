@@ -9,7 +9,7 @@ public class Example {
         
         // 1. 짝수만 골라 10을 더한 뒤 출력하세요
         numbers.stream()
-               .filter(n -> n % 2 == 0) 
+               .filter(n -> n % 2 == 0)  
                .map(n -> n + 10)      
                .forEach(System.out::println);
 
@@ -21,5 +21,6 @@ public class Example {
              .filter(s -> s.length() >= 5) 
              .map(String::toUpperCase)      
              .forEach(System.out::println);
+        
     }
 }
