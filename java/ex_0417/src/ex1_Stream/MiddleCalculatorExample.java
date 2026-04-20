@@ -2,6 +2,9 @@ package ex1_Stream;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MiddleCalculatorExample {
     public static void main(String[] args) {
@@ -60,5 +63,33 @@ public class MiddleCalculatorExample {
             .filter(s -> s.length() >= 5)
             .peek(s -> System.out.println("필터통과: " + s)) 
             .forEach(System.out::println); 
+        
+        //결과를 모으는 최종연산
+        //collect()
+        //스트림의 결과를 리스트,셋,맵 등 으로 모으는 최종 연산이다
+        List<String> words = Arrays.asList("java", "spring", "react", "db", "server");
+        
+        List<String> result = words.stream()
+            .filter(s -> s.length() >= 5)
+            .collect(Collectors.toList()); 
+            
+        System.out.println("최종 리스트: " + result);
+        
+        //기본형 스트림 전용 최종연산
+        //sum(), count(), average() 등
+        //IntStream, DoubleStream 등에서만 제공됩니다.
+        int sum = IntStream
+        		.rangeClosed(1, 5)
+        		.sum(); 
+        long count = IntStream
+        		.rangeClosed(1, 5)
+        		.count(); 
+        OptionalDouble avg = IntStream.rangeClosed(1, 5).average(); 
+        
+        System.out.println("합계 결과: " + sum);
+        System.out.println("개수 결과: " + count);
+        System.out.println("평균 결과: " + avg.orElse(0)); 
+        
+        
     }
 }
