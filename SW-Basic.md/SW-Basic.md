@@ -1017,4 +1017,37 @@ SSL(Secure Sockets Layer)
  
 - 3차정규화
   - 2차 정규화를 만족하는 상태에서 기본키가 아닌 다른 컬럼이 다른 일반 컬럼을 결정하면 분리한다 
-0
+ 
+ ## MYSQL
+ - actor  테이블에서 모든 배우 정보를 조회 하고 싶을때
+
+select actor_id , first_name , last_name , last_update
+from actor;
+
+- 이름 , 성만 조회
+select first_name, last_name
+from actor;
+
+- film 테이블에서 영화 제목과 대여 기간 조회
+select title,rental_duration from film ;
+
+- film 테이블에서 rental_rate  가 2.99이상인 영화 제목과 rental_rate를 조회하세요
+select title , rental_rate
+from film
+where rental_rate >= 2.99;
+
+- film 테이블에서 영화 길이가 120분 이상인 영화의 제목과 길이를 조회
+select title , length from film
+where length >= 120;
+
+- customer 테이블에서 actie 가 1인 고객만 조회하세요
+select * from customer
+where active = 1;
+
+- null,not null 데이터 판별하는법
+- address 테이블에서 address2 가 null인 주소를 조회하세요
+select * from address
+where address2 is null;
+
+select * from address
+where address2 is not null;
