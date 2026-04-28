@@ -44,3 +44,6 @@ insert into FRUIT values (6, '딸기', 3900);
 -- NULL 값 넣기
 insert into FRUIT values (7, '키위',null );
 
+
+-- 사용자 생성하기
+

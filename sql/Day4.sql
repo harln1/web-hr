@@ -143,4 +143,134 @@ delete from ACTOR_PRACTICE;
 select * from flower f ;
 
 delete from flower 
-where FLOWER_NAME = '장미'; -- >> POT에서 장미를 참조하고있기 때문에 삭제 불가!!!!!!!
+where FLOWER_NAME = '장미'; -- >> POT에서 장미를 참조>> 
+		-- 외래키 컬럼이 데이터ㅏ를 참조하고 있으면 참조당하는 쪽의 데이터를 먼저 삭제 불가!!!!!!!
+-- 외래키 설정시 ON DELETE CASCADE  설정으로 주면 같이 삭제 가능 
+
+delete from FLOWER where FLOWER_NAME = '장미';
+-- POT 테이블에서 장미꽃을 담고있는 화분 데이터 삭제하기
+delete  from POT
+WHERE POT_ID = '2026001';
+select * from POT;
+
+create table NOMBER(
+	no int primary  key,
+	name varchar(100),
+	price int,
+	p_date varchar(100));
+
+select * from NOMBER;
+
+insert into NOMBER (no,name,price,p_date)
+values (1000 , '컴퓨터' , 100 , '2021-04-15');
+
+insert into NOMBER(no,name,price,p_date)
+values (1002 , '냉장고' , 200 , '2021-03-29'),
+		(1003 , '에어컨' , 300 , '2021-12-15'),
+		(1004 , '에어컨' , 300 , '2020-12-15'),
+		(1005 , '오디오' , 20 , '2020-12-15'),
+		(1006 , '세탁기' , 60 , '2021-04-15');
+
+select * from NOMBER;
+
+-- NO가 1000인 데이터의 PRICE를 20만큼 증가시키세요
+update NOMBER
+set price = price + 20
+where no = 1000;
+
+-- NAME이 ‘세탁기’인 데이터를 삭제하세요
+delete from NOMBER
+where NAME = '세탁기';
+
+-- PRODUCT 테이블에서 다음과 같이 데이터를 조회하시오.
+select name,price from NOMBER;
+
+
+-- 사용자 생성 
+create user 'student_user'@'localhost'
+identified by '1234';
+
+-- 사용자 확인
+-- mysql 사용자는 mysql.user 테이블에서 확인가능
+select user, host from mysql.user;
+
+-- GRANT
+-- 사용자에게 권한을 주는 명령어
+-- GRANT 권한 ON 데이터베이스명.테이블명 TO '사용자명'@'접속위치';
+
+-- SAKILA 데이터 베이스의 ACTOR 테이블을 조회할 수 있는 권한 주기
+grant select 
+on sakila.actor
+to 'student_user'@'localhost';
+
+-- sakila 데이터 베이스의 다른 테이블에도 접근가능
+grant select,insert,update 
+on sakila.*
+to 'student_user'@'localhost';
+
+-- 모든 권한 부여
+grant all privileges
+on sakila.*
+to 'student_user'@'localhost';
+
+-- 권한 확인하기 
+show grants for 'student_user'@'localhost';
+
+-- revoke
+-- 사용자에게 부여한 권한을 회수하는 명령어
+-- REVOKE 권한 ON 데이터베이스명.테이블명 FROM '사용자명'@'접속위치';
+
+revoke select 
+on SAKILA.ACTOR
+from 'student_user'@'localhost';
+
+-- 모든 권한 회수하기
+revoke all privileges
+on sakila.*
+from 'student_user'@'localhost';
+
+-- 자주쓰이는 권한의 종류
+-- select,insert,update,delete 데이터 관련
+-- create,drop ,alter 테이블관련
+-- index : 인덱스 생성 삭제 관련
+-- references :외래키관련권한
+-- all privilieges
+
+-- 사용자 삭제
+-- drop user '사용자명'@'접속위치';
+drop user 'student_user'@'localhost';
+
+
+create user 'student_user'@'localhost'
+identified by '1234';
+
+grant all privileges
+on sakila.*
+to 'student_user'@'localhost';
+
+create user 'test_user'@'%'
+identified by '1234';
+
+grant select , insert on sakila.film
+to 'test_user'@'%';
+
+
+show grants for 'test_user'@'%';
+
+
+REVOKE SELECT ON sakila.film 
+FROM 'test_user'@'%';
+
+
+DROP USER 'test_user'@'%';
+
+-- 영화가격 수정
+select title,rental_rate from film_practice;
+
+start transaction;
+
+update film_practice
+set rental_rate = rental_rate + 1
+where film_id = 1;
+
+rollback;
