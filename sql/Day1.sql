@@ -124,7 +124,8 @@ alter table STUDENT drop column PHONE;
 
 alter table STUDENT modify EMAIL VARCHAR(100) not null;
 
-# 8. 여러 컬럼을 한번에 추가
+# 8. 여러 컬럼을 한번에 추가\\
+
 # ADDRESS : 문자열(100)
 # GRADE : 정수
 alter table STUDENT
