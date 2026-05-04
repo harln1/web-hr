@@ -484,3 +484,30 @@ HAVING AVG(salary) >= 7000;
 -- where 절에 그룹함수 조건 걸기
 -- group by 안한 속성을 select 에서 사용
 --  having 대신에 where 사용
+
+-- 1. 문자열로 변환 (CHAR)
+SELECT CAST(12345 AS CHAR) AS to_string;
+
+-- 2. 정수로 변환 (SIGNED)
+SELECT CAST('100' AS SIGNED) + 50 AS total; -- 결과: 150
+
+-- 3. 소수점으로 변환 (DECIMAL)
+-- DECIMAL(전체자리수, 소수점자리수)
+SELECT CAST('123.456' AS DECIMAL(10, 2)) AS to_decimal; -- 결과: 123.46
+
+-- 4. 날짜로 변환 (DATE) - 이걸 꼭 써야 한다고 하셨죠!
+-- 문자열을 날짜 데이터 타입으로 바꿔서 날짜 계산이나 비교를 가능하게 합니다.
+SELECT CAST('2025-01-01' AS DATE) AS sale_date;
+
+-- 실제 활용 예시: 문자열 날짜를 비교할 때
+SELECT * 
+FROM sales 
+WHERE sale_date >= CAST('2025-01-01' AS DATE);
+
+--  order by
+-- 쿼리 결과에 반환ㄷ뇌는 행들을 특정 기준으로 정렬하고자 할 때 사용
+-- order by 절은 select 절의 가장 마지막 기술
+-- asc 오름차순(생략)
+-- desc 내림차순(생략불가)
+
+
