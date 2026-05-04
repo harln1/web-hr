@@ -510,4 +510,12 @@ WHERE sale_date >= CAST('2025-01-01' AS DATE);
 -- asc 오름차순(생략)
 -- desc 내림차순(생략불가)
 
+-- 사원 테이블에서 급여를 많이 받는 슌서대로
+-- 급여가 높은 순서(내림차순)로 사원 정보 조회
+SELECT EMPLOYEE_ID ,FIRST_NAME ,SALARY 
+FROM employees
+ORDER BY salary DESC;
 
+SELECT EMPLOYEE_ID ,FIRST_NAME ,SALARY 
+FROM employees
+ORDER BY salary IS NULL;
