@@ -1,276 +1,248 @@
--- DEFAULT 값 사용
-insert into tbl_student (ID,NAME,MAJOR,BIRTH)
-values (1, '홍길동' , '컴퓨터 공학','2020-01-01');
 
-select * from tbl_student ts ;
+-- length() -> 몇바이트 인지 반환
+select title, length(title) from film_practice;
 
--- 문자열데이터, 날짜데이터  넣을떼 작은 따옴표
+-- 테이블에 저장된 데이터가 아니라, 값 자체를 함수에 직접 전달해서
+-- 결과를 확인할 수 있다.
+select length('가나다');
 
-insert into tbl_student (ID,NAME,MAJOR,GENDER,BIRTH)
-values (2,'이영희','산업디자인','W','2020-01-01');
+-- char_length()
+-- 글자 수를 반환한다.
+-- 한글 이모지를 포함해서 실제 글자 수를 보고싶을 때 사용한다.
+select char_length('가나다');
+select title, char_length(title) from film_practice;
 
-insert into tbl_student (ID,NAME,MAJOR,GENDER,BIRTH)
-values (3, '김철수','화학공학','M','1980-01-02');
+-- select 절에 사용하는 것은 조회해서 확인을 하겠다.
 
-select * from tbl_student ts ;
+-- 영화제목이 10자 이하인 것만 영화제목(title)을 조회하세요
+select title, char_length(title)
+from film_practice fp 
+where char_length(title) <= 10;
 
+-- Upper(), UCASE()
+-- 문자열을 대문자로 변환
+select upper('Hello MySQL');
 
-select * from flower ;
-INSERT INTO flower (FLOWER_NAME, FLOWER_COLOR, FLOWER_PRICE)
-VALUES  
-    ('장미', '빨간색' , 3000),
-    ('해바라기', '노란색' , 6000),
-    ('튤립', '보라색' , 5000),
-    ('안개꽃', '흰색' , 2000);
+-- 검색에서 대소문자 무시하고 비교하고 싶을 때 사용한다.
 
-select * from POT;
-INSERT INTO POT (pot_ID, potCOLOR, SHAPE, FLOWER_NAME) 
-VALUES ('2026001', '흰색', '타원형', '장미'),
-		('2026002', '검은색', '네모', '해바라기');
+create table customer_practice as
+select * from sakila.customer;
 
-select * from 
+select * from customer_practice;
 
--- TBL_STUDENT 테이블에 홍길동 이름을 김길동변경
-select * from tbl_student ts ;
+-- LOWER()
+-- 모든 글자를 소문자로 출력
 
-update tbl_student ts 
-set name = '김길동'
-where id = 1;
+-- CUSTOMER 테이블의 이름을 소문자로 조회하기
+select FIRST_NAME,LOWER(FIRST_NAME) from CUSTOMER_PRACTICE;
 
--- DEFAULT 값으로 바꾸기
-update tbl_student 
-set GENDER = default
-where ID = 3;
+-- 테이블에 들어있는 데이터가 대문자인지 소문자인지 모를 때
+-- 전부다 대문자로 바꾸던지, 소문자로 변환해서 사용
 
-select * from tbl_student ts ;
+-- TRIM(), LTRIM(), RTRIM()
+-- 공백제거하기
 
+select TRIM('    HI    '); -- 양쪽 공백 제거
+select LTRIM('    HI    '); -- 왼쪽 공백 제거
+select RTRIM('    HI    '); -- 오른쪽 공백 제거
 
--- 여러 조건으로 UPDATE 하기
--- AND 를 사요ㅕㅇ해서 조건을 모두 만족싴티는 행만 수정
--- 꽃 테이블에서 색이 보라색이고 가격이 5000원 이상인 꽃의ㅣ 이름을 진달래도 바꾸기
-select * from FLOWER;
-UPDATE flower 
-SET flower_name = '진달래'           
-WHERE flower_color = '보라색'        
-  AND flower_price >= 5000;         
+-- 특정 문자 지우기 문법 제공
+select TRIM('x' from 'xxxHELLOxxx');
 
-create table actor_practice as
-select actor_id , first_name , last_name , last_update
-from sakila.actor;
+-- LPAD(), RPAD()
+-- 왼쪽/오른쪽에 문자열을 채워 넣는 함수
+-- LPAD(문자열, 총길이, 채울문자)
 
-select * from actor_practice;
+select LPAD('HELLO',10,'*');
+select RPAD('HELLO',10,'*');
 
--- 배우번호가 1인 배우의 이름을 'JAMES' 로 수정
-update actor_practice
-set first_name = 'JAMES'
-where actor_id = 1;
+-- 문자열이 길이를 초과하게 되면 자른다.
+select LPAD('ABCDEF',4,'0');
 
-select * from actor_practice;
+-- 고객테이블에서 회원번호의 자리수를 5로 만들고
+-- 빈자리는 0으로 채워 고객 번호와 이름을 조회하세요.
+select LPAD(customer_id,5,'0'), first_name
+from customer_practice cp;
 
--- 배우번호가 2인 배우의 이름을 'MINA' 성을 'LEE'
-update  actor_practice
-set first_name = 'MINA' , last_name = 'LEE'
-where actor_id = 2;
+-- SUBSTRING(문자열,시작위치,길이)
+-- SUBSTR()
+-- MID()
 
--- sakila데이터베이스에 있는 film 테이블을 film_practice 로 복사
-create table film_practice as
-select * from  sakila.film;
+select SUBSTRING('Hello MySQL', 1,5);
+-- 글자를 셀 때 1부터 시작한다.
 
-select * from film_practice;
--- 영화번호가ㅣ 1인 영화의 대여가격 rental_rate 를 4.99 로 수정
-update film_practice
-set rental_rate = 4.99
-where film_id = 1;
+-- 길이를 생략하면 끝까지 자른다.
+select substr('Hello MySQL',7);
 
+-- 음수 사용 가능함(뒤에서부터 자른다.)
+select mid('Hello MySQL',-5);
 
--- 배우 테이블에서 이름이 A 로 시작하는 배우의 성을 'TEST' 로 바꾸기
-update actor_practice
-set last_name = 'TEST'
-where first_name = 'A%';
+-- LEFT(), RIGHT()
+-- 문자열에서 왼쪽/오른쪽에서 원하는 길이만큼 잘라서 반환하는 함수
 
--- 영화테입르에서 등급이 'R' , 또는 'NC-17' 인 영화의 대여기간 3ㅇ,러수ㅈㅇ
-update film_practice
-set rental_duration = 3 -- 수정하고자 하는 속성
-where rating in ('R','NC17'); -- 조건
+select 
+	LEFT('Hello',2),
+	right('Hello',2);
 
-select * from FILM_PRACTICE;
--- 영화번호가 1인 영화에 대해 대여기간을 1증가시키기
-select TITLE , RENTAL_DURATION from FILM_PRACTICE
-where FILM_ID = 1;
+-- '900101-1234567' 문자열에서 주민번호 앞 6자리만 자르기
+select left('900101-1234567',6);
+-- photo.png에서 파일 확장하 추출하기
+select right('photo.png',4);
+
+-- INSTR(전체 문자열,찾을 문자열)
+-- 찾을 문자열이 시작되는 위치번호를 반환
+-- 위치번호는 1부터 시작
+-- 찾지 못하면 0을 반환한다.
+
+select
+	INSTR('HELLO','L'),
+	INSTR('사과바나나포도','바나나'),
+	INSTR('사과바나나포도','딸기');
+
+-- 이메일에서 @위치 찾기
+-- 'USER01@TEST.COM'
+
+-- 이메일에서 아이디 부분을 추출하기
+select
+	MID(
+	'USER01@TEST.COM',
+	1,
+	INSTR('USER01@TEST.COM','@')-1);
+
+select * from customer_practice cp;
+
+-- 고객 테이블에서 고객번호와 이메일에서 추출한 아이디를
+-- 조회하세요
+
+select 
+	CUSTOMER_ID, 
+	MID(EMAIL,1,INSTR(EMAIL,'@')-1)
+from customer_practice cp;
+
+-- 고객테이블에서 이메일에 @sakilacustomer.org가 포함된
+-- 고객객의 고객번호와 이름 조회하세요
+
+select customer_id, first_name
+from customer_practice cp
+where instr(email, '@sakilacustomer.org') <> 0;
+
+-- CONCAT('문자열1','문자열2',...)
+-- 인자로 전달된 문자열을 하나로 이어붙이는 함수이다.
+-- 괄호 안에 들어간 문자열들을 순서대로 이어붙인다.
+-- 문자열이 아닌 숫자도 자동으로 문자열로 변환해서 이어 붙인다.
+
+select
+	CONCAT('HELLO', 'WORLD'),
+	CONCAT('HELLO',' ','WORLD');
+
+select CONCAT('나이 : ',25,'세');
+
+-- 고객 테이블에서 이름과 성을 연결하여 조회하기
+select CONCAT(FIRST_NAME,' ',LAST_NAME)
+from customer_practice cp;
+
+-- REPLACE(문자열, OLD, NEW)
+-- 문자열 안에 있는 OLD 문자열을 찾아서 NEW 문자열로 치환
+
+select REPLACE('ABCDAB','AB','XY');
+
+-- 공백 문자 치환
+select REPLACE('Hello world',' ', '');
+
+-- 없는 문자열을 찾으려고 하면 그대로 반환한다.
+
+-- REPEAT(문자열, 횟수)
+-- 같은 문자열을 여러 번 반복해서 이어붙이고 싶을 때
+select REPEAT('ABC',3);
+select REPEAT('*',5);
+
+CREATE TABLE member (
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  email VARCHAR(100),
+  phone VARCHAR(50),
+  nickname VARCHAR(50)
+);
+
+INSERT INTO member VALUES
+(1, '홍길동', 'gildong@test.com', '010-1234-5678', '길동이'),
+(2, '김영희', 'younghee@test.com', '010-999-8888', '영희짱'),
+(3, '이철수', 'chulsoo@oldmail.com', '010-7777-3333', '철수'),
+(4, 'Jane', 'jane@example.com', '010-1212-3434', NULL);
+
+-- 이름과 이메일을 하나의 문자열로 합쳐서 출력하기
+-- 홍길동 - GILDONG@TEST.COM
+select CONCAT(NAME, ' - ', EMAIL) from member;
+-- 전화번호에서 하이픈을 모두 제거한 결과 출력하기
+-- 01012345678
+select REPLACE(PHONE, '-','') from member;
+-- 이름을 3번 반복하여 출력하기
+-- 홍길동홍길동홍길동
+select REPEAT(NAME, 3) from member;
+-- 이메일 도메인에서 @TEST.COM은 @SCHOOL.COM으로 변경하여 출력하기
+select replace(EMAIL,'@test.com','@school.com') from member;
+-- 전화번호 앞 3자리는 그냥 두고 뒤 숫자는 *로 마스킹하기
+-- 010-****-****
+select concat(
+		left(phone,3),
+		'-',
+		repeat('*',char_length(substring_index(substring_index(phone,'-',2),'-',-1))),
+		'-',
+		repeat('*',char_length(substring_index(phone,'-',-1))))
+from member;
+
+-- substring_inex('문자열','구분자',개수)
+-- 구분자를 기준으로 문자열을 나누고 앞 또는 뒤에서 
+-- 원하는 부분만 가져오는 함수
+select substring_index('a-b-c-d','-',-2);
+
+-- 이름의 글자수와 닉네임의 글자수 구하기
+-- 홍길동 3 길동이 3
+select name, char_length(name), nickname, char_length(nickname) from member;
+-- 전화번호가 010으로 시작하지 않는 회원을 찾고 "국내번호 아님: 전화번호"를 붙여서 출력하기
+select
+	concat('국내번호 아님 : ', phone)
+from member
+where left(phone,3) <> '010';
+
+
+-- customer_practice 테이블에서 이름의 첫글자만 남기고 나머지는 *로 마스킹하기
+select CONCAT(
+	left(FIRST_NAME,1),
+	RPAD('',CHAR_LENGTH(FIRST_NAME)-1,'*')) 
+from customer_practice cp ;
+
+
+-- film테이블에서 제목이 'A'로 시작하는 영화만 조회하기 (LIKE X);
+select *
+from  film_practice fp 
+where LEFT(TITLE,1) = 'A';
+
+-- 문자열 + NULL -> NULL
+select CONCAT('안녕',null,'하세요'); 
+-- CONCAT_WS('구분자','값1','값2'...) : 여러 값을 하나의 문자열로 합칠 때 구분자를 자동으로 넣어주는 함수
+select CONCAT_WS('-','A',null,'B');
+
+-- SQL의 NULL 전파 규칙
+-- NULL이 포함된 연산은 결과도 NULL
+select 10+null; -- NULL
+select 'A'+NULL; -- NULL
+
+select * from member;
+
+-- IFNULL() : NULL을 다른 문자열로 치환
+select CONCAT(
+		NAME, 
+		' -> ', 
+		CHAR_LENGTH(NAME), 
+		IFNULL(NICKNAME,' 없음'), 
+		' -> ', 
+		IFNULL(CHAR_LENGTH(NICKNAME),'0'))
+from MEMBER;
+
+select CHAR_LENGTH(NICKNAME) from member;
+
+select SUBSTRING_INDEX('A-B-C-D','-',1);
 
-update FILM_PRACTICE
-set RENTAL_DURATION = RENTAL_DURATION + 1
-where FILM_ID = 1;
 
-select * from FILM_PRACTICE; 
 
--- 영화 테이블의 대여료 를 10퍼센트인상
-update FILM_PRACTICE
-set RENTAL_RATE =RENTAL_RATE * 1.1 ;
-
-
-
-select title , rental_rate from film_practice;
-
-select * from actor_practice;
--- 배우 테이블에서 id 가 1인 배우 삭제
-delete from actor_practice
-where actor_id = 1;
-
-select * from actor_practice
-where actor_id = 1;
-
--- 여러행을삭제
--- 이름이 john 인 배우 모두 삭제
-delete from actor_practice
-where first_name = 'JOHN';
-
-select * from actor_practice
-where FIRST_NAME = 'JOHN';
-
--- LIKE 를 이용한 삭제
--- 이름이 A 로 시작하는 배우삭제
--- `where 컬럼명 like '패턴';`
-delete from ACTOR_PRACTICE
-where FIRST_NAME like 'A%';
-
-select * from ACTOR_PRACTICE
-where FIRST_NAME = 'A';
--- 데이터만 전부 삭제
-delete from ACTOR_PRACTICE;
-
--- FLOWER 테이블의 장미 삭제
-select * from flower f ;
-
-delete from flower 
-where FLOWER_NAME = '장미'; -- >> POT에서 장미를 참조>> 
-		-- 외래키 컬럼이 데이터ㅏ를 참조하고 있으면 참조당하는 쪽의 데이터를 먼저 삭제 불가!!!!!!!
--- 외래키 설정시 ON DELETE CASCADE  설정으로 주면 같이 삭제 가능 
-
-delete from FLOWER where FLOWER_NAME = '장미';
--- POT 테이블에서 장미꽃을 담고있는 화분 데이터 삭제하기
-delete  from POT
-WHERE POT_ID = '2026001';
-select * from POT;
-
-create table NOMBER(
-	no int primary  key,
-	name varchar(100),
-	price int,
-	p_date varchar(100));
-
-select * from NOMBER;
-
-insert into NOMBER (no,name,price,p_date)
-values (1000 , '컴퓨터' , 100 , '2021-04-15');
-
-insert into NOMBER(no,name,price,p_date)
-values (1002 , '냉장고' , 200 , '2021-03-29'),
-		(1003 , '에어컨' , 300 , '2021-12-15'),
-		(1004 , '에어컨' , 300 , '2020-12-15'),
-		(1005 , '오디오' , 20 , '2020-12-15'),
-		(1006 , '세탁기' , 60 , '2021-04-15');
-
-select * from NOMBER;
-
--- NO가 1000인 데이터의 PRICE를 20만큼 증가시키세요
-update NOMBER
-set price = price + 20
-where no = 1000;
-
--- NAME이 ‘세탁기’인 데이터를 삭제하세요
-delete from NOMBER
-where NAME = '세탁기';
-
--- PRODUCT 테이블에서 다음과 같이 데이터를 조회하시오.
-select name,price from NOMBER;
-
-
--- 사용자 생성 
-create user 'student_user'@'localhost'
-identified by '1234';
-
--- 사용자 확인
--- mysql 사용자는 mysql.user 테이블에서 확인가능
-select user, host from mysql.user;
-
--- GRANT
--- 사용자에게 권한을 주는 명령어
--- GRANT 권한 ON 데이터베이스명.테이블명 TO '사용자명'@'접속위치';
-
--- SAKILA 데이터 베이스의 ACTOR 테이블을 조회할 수 있는 권한 주기
-grant select 
-on sakila.actor
-to 'student_user'@'localhost';
-
--- sakila 데이터 베이스의 다른 테이블에도 접근가능
-grant select,insert,update 
-on sakila.*
-to 'student_user'@'localhost';
-
--- 모든 권한 부여
-grant all privileges
-on sakila.*
-to 'student_user'@'localhost';
-
--- 권한 확인하기 
-show grants for 'student_user'@'localhost';
-
--- revoke
--- 사용자에게 부여한 권한을 회수하는 명령어
--- REVOKE 권한 ON 데이터베이스명.테이블명 FROM '사용자명'@'접속위치';
-
-revoke select 
-on SAKILA.ACTOR
-from 'student_user'@'localhost';
-
--- 모든 권한 회수하기
-revoke all privileges
-on sakila.*
-from 'student_user'@'localhost';
-
--- 자주쓰이는 권한의 종류
--- select,insert,update,delete 데이터 관련
--- create,drop ,alter 테이블관련
--- index : 인덱스 생성 삭제 관련
--- references :외래키관련권한
--- all privilieges
-
--- 사용자 삭제
--- drop user '사용자명'@'접속위치';
-drop user 'student_user'@'localhost';
-
-
-create user 'student_user'@'localhost'
-identified by '1234';
-
-grant all privileges
-on sakila.*
-to 'student_user'@'localhost';
-
-create user 'test_user'@'%'
-identified by '1234';
-
-grant select , insert on sakila.film
-to 'test_user'@'%';
-
-
-show grants for 'test_user'@'%';
-
-
-REVOKE SELECT ON sakila.film 
-FROM 'test_user'@'%';
-
-
-DROP USER 'test_user'@'%';
-
--- 영화가격 수정
-select title,rental_rate from film_practice;
-
-start transaction;
-
-update film_practice
-set rental_rate = rental_rate + 1
-where film_id = 1;
-
-rollback;

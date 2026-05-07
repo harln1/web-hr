@@ -1,521 +1,287 @@
--- 숫자 함수
+-- having
+-- where과 기능은 같다.
+-- 그룹화된 결과에 조건을 적용할 때 사용하는 키워드
 
--- ABS()
--- 절대값 구하기
-select ABS(-10), ABS(10), ABS(0);
+-- where -> 묶기 전에 필터링
+-- having -> 묶은 후에 필터링
 
--- ROUND(숫자, 자릿수)
--- 반올림
-select
-	ROUND(1234.567,2),
-	ROUND(1234.567,0),
-	ROUND(1234.567),
-	ROUND(1235.567,-1),
-	ROUND(1235.567,-2);
+-- group by를 사용하면 데이터가 다음과 같이 바뀐다.
+-- 여러 행 -> 그룹으로 묶임 -> 집계 값이 생성
 
--- FLOOR()
--- 주어진 숫자보다 작거나 같은 정수 중 최대값을 반환
--- 내림이라고 생각해도 좋다.
+-- where에서는 집계함수를 사용할 수 없다.
 
-select
-	FLOOR(2),
-	FLOOR(2.1),
-	FLOOR(-2.1);
+-- 평균 급여가 5000 보다 큰 부서의 정보를 조회하세요
+select department_id, avg(salary)
+from employees
+-- where avg(salary) > 5000 -- 전체 행에 대해서 평균급여를 구함
+group by department_id
+having avg(salary) > 5000;
 
--- TRUNCATE()
--- 버림
-select TRUNCATE(3.141592,2);
+-- select
+-- from
+-- where
+-- group by
+-- haivng
 
--- CEIL()
--- 주어진 숫자보다 크거나 같은 정수 중 최소값
--- 올림
-select 
-	CEIL(2),
-	CEIL(2.1),
-	CEIL(-2.1);
+-- 급여가 5000 이상인 사원들을 대상으로
+-- 부서별 평균 급여가 7000 이상인 부서 조회하기
+select department_id, avg(salary)
+from employees
+where salary >= 5000
+group by DEPARTMENT_ID 
+having avg(salary) >= 7000;
 
--- SIGN()
--- 인자로 전달된 숫자가 양수 -> 1
--- 음수면 -> -1
--- 0이면 -> 0
--- NULL -> NULL
+-- 많이 하는 실수
+-- where 절에 그룹함수 조건 걸기
+-- group by 안한 속성을 select에서 사용
+-- having 대신에 where 사용
+-- 
 
-select
-	SIGN(-238),
-	SIGN(0),
-	SIGN(359);
+-- 부서별 사원 수를 구하고 사원 수가 3명 이상인 부서만
+-- 조회하세요
+select department_id, count(*)
+from employees e 
+group by department_id 
+having count(*) >= 3;
+-- 부서별 최고 급여가 10000 이상인 부서 조회
+select department_id, max(salary)
+from employees
+group by DEPARTMENT_ID 
+having max(salary) >= 10000;
 
--- MOD()
--- 나누기 했을 때 나머지를 구한다.
-select
-	MOD(1,3),
-	MOD(2,3),
-	MOD(3,3),
-	mod(4,3);
+-- 입사년도별 사원 수 중 5명 이상인 년도만 출력
+select year(hire_date), count(*)
+from employees
+group by year(hire_date)
+having count(*) >= 5;
 
-select
-	4 % 3;
-
--- POWER(밑값,지수)
-select
-	POWER(2,1),
-	POWER(2,2),
-	POWER(2,3),
-	POWER(2,0);
-
--- RAND()
--- 0이상 1미만의 난수를 반환
-select
-	RAND();
-
--- GRATEST() / LEAST()
--- 최대값, 최소값을 반환
-select
-	GREATEST(10,20,5),
-	LEAST(10,20,5);
+DROP TABLE IF EXISTS sales;
 
 CREATE TABLE sales (
-  id INT PRIMARY KEY,
-  product VARCHAR(50),
-  price DECIMAL(10,2),
-  quantity INT,
-  discount_rate DECIMAL(5,2)  -- 할인율(예: 0.15 → 15%)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(50),
+    amount INT,
+    sale_date DATE
 );
 
-INSERT INTO sales VALUES
-(1, 'Keyboard', 29900, 2, 0.10),
-(2, 'Mouse',    15900, 3, 0.05),
-(3, 'Monitor',  199000, 1, 0.20),
-(4, 'USB',       8900, 10, 0.00),
-(5, 'Speaker',  45500, 4, 0.15);
+INSERT INTO sales (category, amount, sale_date) VALUES
+('식품', 80000, '2025-01-01'),
+('식품', 70000, '2025-01-02'),
+('식품', 60000, '2025-01-03'),
+('전자제품', 250000, '2025-01-01'),
+('전자제품', 150000, '2025-01-02'),
+('의류', 30000, '2025-01-01'),
+('의류', 25000, '2025-01-03'),
+('도서', 12000, '2025-01-02'),
+('가구', 180000, '2025-01-03'),
+('가구', 50000, '2025-01-04'),
+('문구', 10000, '2024-12-31'),
+('문구', 15000, '2025-01-02');
 
--- 각 상품의 제품명과 가격을 3으로 나눈 나머지를 조회하세요
-select ID, PRODUCT, PRICE, MOD(PRICE,3)
-FROM SALES;
--- 모든 내용을 조회하되, 할인률은 %로 표시하기
-select
-	ID,
-	PRODUCT,
-	CONCAT(ROUND(DISCOUNT_RATE*100), '%')
-from SALES;
--- 세일즈 테이블에서 
-# 아이디, 제품명, 가격, 재고, 총 가격(소수점 아래 버림)을 조회하시오
-select 
-	ID,
-	PRODUCT,
-	PRICE,
-	QUANTITY,
-	PRICE * QUANTITY * (1-DISCOUNT_RATE)
-from SALES;
--- 1 ~ 100사이의 난수를 생성하세요
-select
-	FLOOR(RAND() * 100) +1;
+-- 판매 내역 테이블
+select * from sales;
 
-SELECT
-	FLOOR(-2.1),
-	TRUNCATE(-2.1,0);
+-- 판매가 2번 이상 발생한 카테고리만 조회하기
+select category, count(*)
+from sales
+group by category
+having count(*) >= 2;
+-- 카테고리별 평균 결제 금액이 100,000원 이상이 것만 
+-- 조회하기
+select category, avg(amount)
+from sales s 
+group by category 
+having avg(amount) >= 100000;
 
--- 상품 가격이 50000만보다 크면 1, 작으면 -1, 같으면 0이되도록
--- 상품이름과 함께 조회하세요
-select
-	PRODUCT,
-	SIGN(PRICE-50000)
-from SALES;
+-- 2025-01-02 이후의 거래만 대상으로, 카테고리별 총액이 20,000원
+-- 이상인 경우만 조회하기
+select category, sum(amount)
+from sales
+where sale_date >= '2025-01-02'
+group by category 
+having sum(amount) >= 20000;
 
--- FORMAT(숫자,소수점자리수)
--- 숫자를 사람이 보기 좋게 "문자열 형태로 포맷팅"하는 함수
--- 특히 천 단위 콤마(,) + 소수점 자리수 지정을 자동으로 해준다.
+-- 카테고리별 총 판매 금액을 구하되, 판매금액이 200,000이상인
+-- 카테고리만 조회하기
+select category, sum(amount)
+from sales s
+group by category
+having sum(amount) >= 200000;
 
-select
-	FORMAT(1234567,0),
-	FORMAT(1234567,2);
+-- 카테고리별 가장 큰 판매금액을 구하되
+-- 가장 큰 금액이 200,000원 이상인 카테고리만 조회하세요
+select category, max(amount)
+from sales s
+group by category 
+having max(amount) >= 200000;
 
--- 결과는 숫자가 아니라 문자열로 반환한다.
+-- 카테코리별 판매 총액을 구한 뒤, 총 판매금액이 50,000이상인
+-- 카테고리만 조회하세요
 
-select
-	ID,
-	PRODUCT,
-	FORMAT(PRICE,0),
-	QUANTITY,
-	discount_rate
-from SALES;
+select category, sum(amount)
+from sales s 
+group by category
+having sum(amount) >= 50000;
 
--- 날짜 함수
--- 날짜/시간 데이터를 조회, 계산, 추출, 변환, 포맷팅을 할 때 사용
 
--- NOW()
--- 현재 날짜와 시간을 반환한다.
-select NOW();
+-- 2025년 1월 1일에 판매된 데이터만 대상으로 하여
+-- 카테고리별 판매 총액 구하기
+-- 총 판매 금액이 20,000이상인것만 조회하기
+select category, sum(amount)
+from sales s 
+where sale_date = '2025-01-01'
+group by category 
+having sum(amount) >= 20000;
 
--- CURDATE() / CURRENT_DATE()
--- 현재 날짜만 반환
-select CURDATE();
+-- ROLLUP
+-- GROUP BY가 그룹별로 집계를 해준다면, ROLLUP은 소계와 총계
+-- 까지 한 번에 만드는 기능
 
--- CURTIME() / CURRENT_TIME()
--- 현재 시간만 반환
-select CURTIME();
+-- 아래에서 위로 합계를 말아 올리는 기능
+-- 카테고리별 판매금액
+select CATEGORY, SUM(AMOUNT)
+from SALES
+group by CATEGORY;
 
--- YEAR(날짜)
--- 연도만 추출한다.
-select YEAR('2026-04-30');
+-- ROLLUP을 사용하여 카테고리별 합계와 전체합계를 같이 조회
+select IFNULL(CATEGORY,'전체'), SUM(AMOUNT)
+from SALES
+group by CATEGORY with ROLLUP;
 
--- MONTH(날짜)
--- 월만 추출
-select MONTH('2026-04-30');
+INSERT INTO sales (category, amount, sale_date) VALUES
+-- 2024 데이터 보강
+('식품', 50000, '2024-01-02'),
+('식품', 40000, '2024-01-03'),
+('전자제품', 120000, '2024-02-01'),
+('전자제품', 80000, '2024-02-03'),
+('의류', 20000, '2024-03-01'),
+('가구', 90000, '2024-03-05'),
+-- 2026 데이터 추가
+('식품', 90000, '2026-01-01'),
+('식품', 70000, '2026-01-02'),
+('전자제품', 300000, '2026-01-03'),
+('전자제품', 200000, '2026-01-04'),
+('의류', 60000, '2026-02-01'),
+('도서', 15000, '2026-02-03'),
+('가구', 250000, '2026-03-01'),
+('가구', 100000, '2026-03-05');
 
--- DAY()
--- 일자를 추출
-select DAY('2026-04-30');
+-- 년도별 + 카테고리별 ROLLUP
+SELECT 
+    year(SALE_DATE),
+    CATEGORY,
+    SUM(AMOUNT)
+FROM SALES
+GROUP BY year(SALE_DATE), CATEGORY WITH ROLLUP;
+-- 년도 + 카테고리별 합계
+-- 년도별 합계
+-- 전제 합계
 
--- HOUR(), MINUTE(), SECOND()
-select
-	HOUR('2026-04-30 15:20:10'),
-	MINUTE('2026-04-30 15:20:10'),
-	SECOND('2026-04-30 15:20:10');
+select * from SALES;
 
--- 날짜(DATE) 포맷 : YYYY-MM-DD
--- DATETIME 포맷 : YYYY-MM-DD HH:MM:SS
+-- 월별 + 카테고리별 총 판매량 ROLLUP
+select year(SALE_DATE),MONTH(SALE_DATE), CATEGORY, SUM(AMOUNT)
+from SALES
+group by year(SALE_DATE),MONTH(SALE_DATE),CATEGORY with rollup;
 
--- 요일 관련 함수
-
--- DAYOFWEEK()
--- 요일을 숫자로 반환한다.
-select DAYOFWEEK(CURDATE());
--- 1 : 일요일
--- 7 : 토요일
-
--- WEEKDAY()
--- 요일을 숫자로 반환
--- 0 : 월요일
--- 6 : 일요일
-
--- DAYNAME()
--- 요일 이름을 반환(영어)
-select DAYNAME(CURDATE());
-
--- LAST_DAY(DATE)
--- 월의 마지막날 구하기
-select
-	'2026-05-01',
-	LAST_DAY('2026-05-01');
-
--- DATE_ADD(날짜, INTERVAL 숫자 단위)
--- INTERVAL 단위 : 얼마만큼 단위로 더할 것인가
-select 
-	NOW(),
-	DATE_ADD(NOW(), interval 10 day),
-	DATE_ADD(NOW(), interval 3 MONTH),
-	DATE_ADD(NOW(), interval 2 HOUR);
-
--- YEAR, MONTH, DAY, HOUR, MINUTE, SECOND
-
--- DATE_SUB()
--- 날짜에서 기간을 뺀다.
-select 
-	NOW(),
-	DATE_SUB(NOW(), interval 10 day),
-	DATE_SUB(NOW(), interval 3 MONTH),
-	DATE_SUB(NOW(), interval 2 HOUR);
-
--- 날짜 간의 차이를 계산
--- DATEDIFF()
--- 두 날짜 사이의 차이를 "일수"로 계산한다.
-select 
-	DATEDIFF('2026-05-10','2026-04-30'),
-	DATEDIFF('2026-04-30','2026-05-10');
-
--- 날짜 포맷 변경
--- DATE_FORMAT(날짜, 포맷)
--- 날짜를 원하는 문자열 형태로 바꾼다.
-
--- 자주 쓰는 포맷 기호
--- %Y : 4자리 년도	2026
--- %y : 2자리 년도	26
--- %m : 2자리 월		04
--- %c : 1~2자리 월	4
--- %d : 2자리 일		01
--- %e : 1~2자리 일	1
--- %H : 24시간제 시	15
--- %h : 12시간제 시	03
--- %i : 분
--- %s : 초
--- %W : 요일명	Thursday
--- %a : 짧은 요일명	Thu
-
-select date_format('2026-04-30 15:20:10', '%Y년 %m월 %d일 %H시 %i분');
-
--- MAKEDATE(연도, 일수)
-select MAKEDATE(2026,32);
-
-CREATE TABLE orders (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    customer VARCHAR(50),
-    order_date DATE,
-    ship_date DATE,
-    price INT
-   );
-
-INSERT INTO orders (customer, order_date, ship_date, price) VALUES
-('홍길동', '2025-01-02', '2025-01-05', 30000),
-('이몽룡', '2025-01-10', '2025-01-12', 45000),
-('성춘향', '2024-12-28', '2025-01-03', 52000),
-('김철수', '2025-02-01', '2025-02-03', 15000),
-('박영희', '2025-02-10', NULL, 22000);  -- 아직 배송되지 않음
-
--- 주문테이블에서 고객의 이름과,주문날짜의 년, 월, 일을 조회하세요
-select 
-	CUSTOMER,
-	YEAR(order_date),
-	MONTH(order_date),
-	DAY(order_date)
-	from ORDERS;
-
--- 배송까지 걸린 일수를 이름과 함께 조회하기
--- 배송 안된것은 제외
-select
-	CUSTOMER,
-	DATEDIFF(SHIP_DATE, ORDER_DATE)
-from ORDERS
-where SHIP_DATE is not null;
--- 2025년 1월에 주문된 주문만 조회하세요
-select *
-from ORDERS
-where YEAR(ORDER_DATE) = 2025 and MONTH(ORDER_DATE)=1;
--- 주문날짜를 기준으로 작년에 주문된 기록만 조회하세요
-select *
-from ORDERS
-where YEAR(ORDER_DATE) = year(CURDATE())-1;
-
-DROP TABLE IF EXISTS EMPLOYEES;
-
-CREATE TABLE EMPLOYEES (
-    EMPLOYEE_ID INT PRIMARY KEY,
-    FIRST_NAME VARCHAR(50),
-    LAST_NAME VARCHAR(50),
-    EMAIL VARCHAR(100),
-    HIRE_DATE DATE,
-    JOB_ID VARCHAR(20),
-    SALARY INT,
-    COMMISSION_PCT DECIMAL(3,2),
-    MANAGER_ID INT,
-    DEPARTMENT_ID INT
-);
-
-INSERT INTO EMPLOYEES VALUES
-(100, 'Steven', 'King', 'SKING', '2003-06-17', 'AD_PRES', 24000, NULL, NULL, 90),
-(101, 'Neena', 'Kochhar', 'NKOCHHAR', '2005-09-21', 'AD_VP', 17000, NULL, 100, 90),
-(102, 'Lex', 'De Haan', 'LDEHAAN', '2001-01-13', 'AD_VP', 17000, NULL, 100, 90),
-(103, 'Alexander', 'Hunold', 'AHUNOLD', '2006-01-03', 'IT_PROG', 9000, NULL, 102, 60),
-(104, 'Bruce', 'Ernst', 'BERNST', '2007-05-21', 'IT_PROG', 6000, NULL, 103, 60),
-(105, 'David', 'Austin', 'DAUSTIN', '2005-06-25', 'IT_PROG', 4800, NULL, 103, 60),
-(106, 'Valli', 'Pataballa', 'VPATABAL', '2006-02-05', 'IT_PROG', 4800, NULL, 103, 60),
-(107, 'Diana', 'Lorentz', 'DLORENTZ', '2007-02-07', 'IT_PROG', 4200, NULL, 103, 60),
-(108, 'Nancy', 'Greenberg', 'NGREENBE', '2002-08-17', 'FI_MGR', 12000, NULL, 101, 100),
-(109, 'Daniel', 'Faviet', 'DFAVIET', '2002-08-16', 'FI_ACCOUNT', 9000, NULL, 108, 100),
-(110, 'John', 'Chen', 'JCHEN', '2005-09-28', 'FI_ACCOUNT', 8200, NULL, 108, 100),
-(111, 'Ismael', 'Sciarra', 'ISCIARRA', '2005-09-30', 'FI_ACCOUNT', 7700, NULL, 108, 100),
-(112, 'Jose Manuel', 'Urman', 'JMURMAN', '2006-03-07', 'FI_ACCOUNT', 7800, NULL, 108, 100),
-(113, 'Luis', 'Popp', 'LPOPP', '2007-12-07', 'FI_ACCOUNT', 6900, NULL, 108, 100),
-(114, 'Den', 'Raphaely', 'DRAPHEAL', '2002-12-07', 'PU_MAN', 11000, NULL, 100, 30),
-(115, 'Alexander', 'Khoo', 'AKHOO', '2003-05-18', 'PU_CLERK', 3100, NULL, 114, 30),
-(116, 'Shelli', 'Baida', 'SBAIDA', '2005-12-24', 'PU_CLERK', 2900, NULL, 114, 30),
-(117, 'Sigal', 'Tobias', 'STOBIAS', '2005-07-24', 'PU_CLERK', 2800, NULL, 114, 30),
-(118, 'Guy', 'Himuro', 'GHIMURO', '2006-11-15', 'PU_CLERK', 2600, NULL, 114, 30),
-(119, 'Karen', 'Colmenares', 'KCOLMENA', '2007-08-10', 'PU_CLERK', 2500, NULL, 114, 30);
+-- NULL 처리
+-- 집계함수는 자동으로 NULL을 무시한다.
 
 select * from EMPLOYEES;
 
--- 부서번호가 30번인 사원들의 이름을 출력하되, 이름 중 'el'을
--- 모두 '**'로 마스킹 처리하여 출력해주세요
-select replace(first_name,'el','**')
-from employees
-where department_id = 30;
--- 이름이 6글자 이상인 사원의 사번과 이름, 급여를 조회하기
-select first_name, salary
-from employees
-where char_length(first_name) >= 6;
--- 사원테이블에서 이름과 사원번호를 출력하되,
--- 사원번호는 짝수면 0, 홀수면 1로 출력하세요
-select mod(employee_id,2), first_name
-from employees;
--- 사원번호가 짝수인 사람들의 사원번호와 이름 조회하기
-select employee_id, first_name
-from employees
-where mod(employee_id,2) = 0;
+select COUNT(*) from employees e; -- 전체 행
+-- 속성을 넣으면 NULL값을 제외함
 
--- 사원테이블에서 이름, 급여, 1000당 ■로 개수를 채워 조회하기
--- ex 홍길동 8000 ■■■■■■■■
-select 
-	first_name, 
-	salary, 
-	repeat('■',round(salary/1000))
-from employees;
+-- SALES테이블에서 카테고리의 개수 세기
+-- DISTINCT : 중복되는 값을 제거한다.
+select COUNT(distinct CATEGORY) from SALES;
 
--- 사원테이블에서 이름, 입사날짜, 6개월 뒤 입사날짜 순으로
--- 조회하세요
+-- IFNULL(컬럼,대체값)
+select FIRST_NAME,SALARY,IFNULL(e.COMMISSION_PCT,0) 
+from employees e;
+
+INSERT INTO employees (employee_id, first_name, last_name, email, hire_date, job_id, salary, commission_pct, manager_id, department_id)
+VALUES
+(201, 'Chris', 'Brown', 'CBROWN', '2025-01-10', 'IT_PROG', NULL, NULL, 103, 60),
+(202, 'Emma', 'Stone', 'ESTONE', '2025-02-15', 'FI_ACCOUNT', NULL, NULL, 108, 100),
+(203, 'Liam', 'Smith', 'LSMITH', '2025-03-20', 'PU_CLERK', NULL, NULL, 114, 30),
+(204, 'Olivia', 'Davis', 'ODAVIS', '2025-04-05', 'IT_PROG', NULL, NULL, 103, 60),
+(205, 'Noah', 'Wilson', 'NWILSON', '2025-05-01', 'FI_ACCOUNT', NULL, NULL, 108, 100);
+
+select * from EMPLOYEES where SALARY is null;
+
+-- 전체 급여 평균
+select AVG(IFNULL(SALARY,0)) from EMPLOYEES;
+
+-- 형변환 함수
+-- CAST(값 AS 타입);
+-- CHAR : 문자열
+-- SIGNED : 정수
+-- DECIMAL : 소수
+-- DATE : 날짜
+
+-- 사원테이블에서 사원번호, 사원명, 급여를 조회하되,
+-- 급여는 '급여 : XXX' 형태로 나오도록 작성하시오
 select 
-	first_name, 
-	hire_date, 
-	date_add(hire_date,interval 6 MONTH)
+	EMPLOYEE_ID, 
+	FIRST_NAME, 
+	CONCAT('급여 : ', cast(SALARY as CHAR))
 from EMPLOYEES;
 
--- 집계함수
--- 여러 행의 값을 하나의 결과값으로 요약해주는 함수
-# 학생 점수를 저장한 score 테이블을 먼저 만들고 데이터를 넣는다.
-CREATE TABLE score (
-  id INT,
-  name VARCHAR(30),
-  subject VARCHAR(20),
-  point INT
-);
+-- ORDER BY
+-- 쿼리 결과에 반환되는 행들을 특정 기준으로 정렬하고자 할 때 사용
+-- ORDER BY절은 SELECT절의 가장 마지막에 기술
+-- ASC : 오름차순(생략 가능)
+-- DESC : 내림차순(생략 불가);
 
-INSERT INTO score VALUES
-(1, '홍길동', '국어', 85),
-(2, '김철수', '영어', 90),
-(3, '이영희', '수학', 78),
-(4, '박민수', '영어', 92),
-(5, '최다혜', '국어', NULL);
-
--- COUNT()
--- 값의 개수를 반환하는 함수
-select COUNT(POINT) from SCORE; -- 점수가 NULL이 아닌 개수
-select COUNT(NAME) from SCORE;
-select COUNT(*) from SCORE; -- NULL을 포함한 모든 행의 개수
-
--- SUM()
--- NULL은 제외한 총합을 구한다.
-select SUM(POINT) from SCORE;
-
--- AVG()
--- NULL을 제외하고 평균을 계산한다.
-select AVG(POINT) from SCORE;
-
--- MAX()
--- 최대값을 구한다.
-select MAX(POINT) from SCORE;
-
--- MIN()
--- 최소값을 구한다.
-select MIN(POINT) from SCORE;
-
--- 사원테이블에서 직종이(JOB_ID)가 'IT_PROG'인 사람들의
--- 평균 급여, 급여 최고액, 급여 최저액, 급여의 총 합계를 출력하세요
-select AVG(SALARY), MAX(SALARY), MIN(SALARY), SUM(SALARY)
+-- 사원테이블에서 급여를 많이 받는 순으로 사번, 이름, 급여를 출력하기
+select EMPLOYEE_ID, FIRST_NAME, SALARY
 from EMPLOYEES
-where JOB_ID = 'IT_PROG';
+where SALARY is not NULL
+order by SALARY;
 
--- 사원테이블에서 100번 부서의 사원들의 급여의 평균을 출력하되,
--- 소수점 한자리까지 출력하세요
-select FORMAT(AVG(SALARY),1)
+-- 정렬은 여러가지 기준으로 가능하다.
+-- 급여가 같을 때 입사일이 늦은 순서대로 정리하기
+select EMPLOYEE_ID, FIRST_NAME, SALARY, HIRE_DATE
 from EMPLOYEES
-where DEPARTMENT_ID =100;
+where SALARY is not NULL
+order by SALARY ASC, HIRE_DATE DESC;
 
--- 총 사원수가 몇명인지 구하시오.
-select COUNT(*) from EMPLOYEES;
+select * from EMPLOYEES order by 7 ASC;
 
--- 급여가 5000 이상인 사원들의 평균급여를 구하세요.
-select AVG(SALARY) from EMPLOYEES
-where SALARY >= 5000;
--- 2005년에 입사한 사원들의 수를 구하세요
-select COUNT(*) from EMPLOYEES
-where year(HIRE_DATE) = 2005;
 
--- 일반적으로 집계함수와 일반 속성은 SELECT절에서
--- 같이 조회가 불가능하다.
+-- 순위를 구하는 함수
+-- 행마다 순위를 붙여주는 함수
 
-select JOB_ID, COUNT(*)
-from EMPLOYEES
-group by JOB_ID;
+-- RANK() OVER(정렬)
+select 
+	RANK()OVER(order by SALARY DESC), 
+	FIRST_NAME, 
+	SALARY
+from EMPLOYEES;
+-- 공동 순위 발생
+-- 다음 순위 건너 뜀 (1,2,2,4);
 
--- GROUP BY로 묶은 속성은 SELECT에서 집계함수와 함께 사용할 수 있다.
+-- DENSE_RANK()
+-- 공동순위는 있지만 건너뛰지 않음
+select 
+	DENSE_RANK()OVER(order by SALARY DESC), 
+	FIRST_NAME, 
+	SALARY
+from EMPLOYEES;
+-- ROW_NUMBER() : 무조건 순서대로 번호
+select 
+	ROW_NUMBER()OVER(order by SALARY DESC), 
+	FIRST_NAME, 
+	SALARY
+from EMPLOYEES;
 
--- 사원테이블에서 각 직종별 급여의 합 구하기
-select JOB_ID, SUM(SALARY)
-from EMPLOYEES
-group by JOB_ID;
--- 부서별로 가장 높은 급여 조회하기
-select DEPARTMENT_ID, MAX(SALARY)
-from employees e 
-group by DEPARTMENT_ID;
 
--- 그룹별로 구분을 할 때 기준이 꼭 하나일 필요는 없다.
 
-select DEPARTMENT_ID,JOB_ID,COUNT(*)
-from EMPLOYEES
-where 조건
-group by DEPARTMENT_ID,JOB_ID;
 
--- 사원테이블에서 입사년도별 사원수를 조회
--- 년도 이름순으로 조회하기
-SELECT YEAR(hire_date) AS hire_year, COUNT(*) AS emp_count
-FROM employees
-GROUP BY hire_year
-ORDER BY hire_year;
 
--- 부서별로 급여가 5000 이상인 사원들의 평균 급여 구하기
-SELECT department_id, AVG(salary)
-FROM employees
-WHERE salary >= 5000
-GROUP BY department_id;
 
--- 부서별 최고 급여과 최저 급여의 차이를 구하세요.
-SELECT department_id, MAX(salary) - MIN(salary) AS diff_salary
-FROM employees
-GROUP BY department_id;
--- 이름에 'a'가 포함된 사원들만 대상으로,
--- 이름 길이별 사원수를 구하세요
-SELECT LENGTH(first_name) AS name_len, COUNT(*)
-FROM employees
-WHERE first_name LIKE '%a%'
-GROUP BY name_len;
--- 입사일 기준으로 요일별 사원 수 구하기
-SELECT DAYNAME(hire_date) AS day_of_week, COUNT(*)
-FROM employees
-GROUP BY day_of_week, DAYOFWEEK(hire_date)
-ORDER BY DAYOFWEEK(hire_date);
--- 급여가 5000이상인 사원들을 대상으로 부서별 평균 급여가 7000이상인 부서 조회
-SELECT department_id, AVG(salary) AS avg(salary)
-FROM employees
-WHERE salary >= 5000
-GROUP BY department_id
-HAVING AVG(salary) >= 7000;  
 
--- 많이하는 실수
--- where 절에 그룹함수 조건 걸기
--- group by 안한 속성을 select 에서 사용
---  having 대신에 where 사용
 
--- 1. 문자열로 변환 (CHAR)
-SELECT CAST(12345 AS CHAR) AS to_string;
 
--- 2. 정수로 변환 (SIGNED)
-SELECT CAST('100' AS SIGNED) + 50 AS total; -- 결과: 150
 
--- 3. 소수점으로 변환 (DECIMAL)
--- DECIMAL(전체자리수, 소수점자리수)
-SELECT CAST('123.456' AS DECIMAL(10, 2)) AS to_decimal; -- 결과: 123.46
-
--- 4. 날짜로 변환 (DATE) - 이걸 꼭 써야 한다고 하셨죠!
--- 문자열을 날짜 데이터 타입으로 바꿔서 날짜 계산이나 비교를 가능하게 합니다.
-SELECT CAST('2025-01-01' AS DATE) AS sale_date;
-
--- 실제 활용 예시: 문자열 날짜를 비교할 때
-SELECT * 
-FROM sales 
-WHERE sale_date >= CAST('2025-01-01' AS DATE);
-
---  order by
--- 쿼리 결과에 반환ㄷ뇌는 행들을 특정 기준으로 정렬하고자 할 때 사용
--- order by 절은 select 절의 가장 마지막 기술
--- asc 오름차순(생략)
--- desc 내림차순(생략불가)
-
--- 사원 테이블에서 급여를 많이 받는 슌서대로
--- 급여가 높은 순서(내림차순)로 사원 정보 조회
-SELECT EMPLOYEE_ID ,FIRST_NAME ,SALARY 
-FROM employees
-ORDER BY salary DESC;
-
-SELECT EMPLOYEE_ID ,FIRST_NAME ,SALARY 
-FROM employees
-ORDER BY salary IS NULL;
