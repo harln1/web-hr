@@ -328,6 +328,62 @@ SELECT
     COUNT(c.customer_id) AS "추천수"
 FROM customer c
 JOIN customer r ON c.recommender_id = r.customer_id
-GROUP BY r.customer_id, r.customer_name
+GROUP BY r.customer_id, 
+
+r.customer_name
 ORDER BY 추천수 DESC;
 
+create view customer_address_view as
+select c.first_name, c.last_name, a.address
+from customer c 
+inner join address a
+on c.address_id = a.address_id;
+-- 복잡한 SELECT를 테이블처럼 사용할 수 있다.
+select * from customer_address_view;
+
+-- 영화 번호(film),
+-- 영화 제목(film), 
+-- 카테고리(film_category), 
+-- 대여료(film)를 조회하는 SELECT문을
+-- film_category_view라는 이름의 view로 만들기
+
+
+
+
+
+create view film_category_view as
+select f.film_id, f.title, c.name as category_name, f.rental_rate
+from film f 
+inner join film_category fc
+on f.film_id = fc.film_id
+inner join category c 
+on c.category_id = fc.category_id
+order by film_id;
+
+select * from film_category_view;
+
+-- 고객별 영화 대여 횟수를 customer_rental_count_view로 만들기
+create view customer_rental_count_view as
+select 
+	c.customer_id,
+	c.first_name,
+	c.last_name,
+	count(r.rental_id) as rental_count
+from customer c
+inner join rental r
+on c.customer_id = r.customer_id
+group by
+	c.customer_id,
+	c.first_name,
+	c.last_name;
+
+select * from customer_rental_count_view;
+
+-- 30번 이상 빌려본 고객의 정보를 조회하세요
+select * from customer_rental_count_view
+where rental_count >= 30;
+
+-- view를 사용하면 좋은 경우
+-- 1. 복잡한 join과 조건이 반복될 때
+-- 2. 비즈니스 규칙을 숨겨둘 때
+-- 3. 보안,권한 제어용으로 사용한다.
