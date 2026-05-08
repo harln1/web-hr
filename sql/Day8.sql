@@ -387,3 +387,15 @@ where rental_count >= 30;
 -- 1. 복잡한 join과 조건이 반복될 때
 -- 2. 비즈니스 규칙을 숨겨둘 때
 -- 3. 보안,권한 제어용으로 사용한다.
+
+-- 고객이름 , 주문한 제품명을 left outer join 을 이용하여 조회하기
+SELECT c.customer_name, p.product_name
+FROM customer c
+LEFT OUTER JOIN orders o 
+ON c.customer_id = o.customer_id
+LEFT OUTER JOIN product p 
+ON o.product_id = p.product_id 
+ WHERE product_name = '노트북';
+
+
+
