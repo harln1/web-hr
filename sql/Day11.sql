@@ -613,3 +613,62 @@ BEGIN
 	END LOOP;
 END //
 delimiter ;
+SELECT * FROM loop_test;
+
+CREATE TABLE loop_result(
+	value_text varchar(100)
+);
+-- while 문을 이용하여 1~20 까지의 수 중 짝수만 저장하기
+DELIMITER //
+
+CREATE PROCEDURE save_even_numbers()
+BEGIN
+    DECLARE v_num INT DEFAULT 1;
+    
+    WHILE v_num <= 20 DO
+    
+        IF v_num % 2 = 0 THEN
+            INSERT INTO loop_result (value_text) VALUES (CONCAT(v_num, '은(는) 짝수입니다'));
+        END IF;
+
+        SET v_num = v_num + 1;
+    END WHILE;
+END //
+
+DELIMITER ;
+
+
+CALL save_even_numbers();
+SELECT * FROM loop_result;
+
+
+DELETE FROM LOOP_result;
+
+-- repeat 문을 사용하여 1부터 10까지의 총 합 구하기
+
+
+DELIMITER //
+
+CREATE PROCEDURE sum_example()
+BEGIN
+    DECLARE v_num INT DEFAULT 1;
+    DECLARE v_sum INT DEFAULT 0;
+
+    REPEAT
+        -- 합계에 현재 숫자를 더함
+        SET v_sum = v_sum + v_num;
+        -- 다음 숫자로 증가
+        SET v_num = v_num + 1;
+        
+    -- v_num이 10보다 커지면 반복 종료
+    UNTIL v_num > 10
+    END REPEAT;
+
+    -- 최종 결과 출력
+    SELECT v_sum AS total_sum;
+END //
+
+DELIMITER ;
+
+-- 실행
+CALL sum_example();
