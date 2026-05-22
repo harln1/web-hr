@@ -1,4 +1,4 @@
-
+ 
 # 2026/5/13
 
 ## Stroed Program
@@ -22,7 +22,7 @@
 
 - DBMS 회사마다 JDBC Driver가 다르다
     - MySQL : mysql-connector-j
-    - Oracle : ojdbc
+    - Oracle : ojdbc  
     - PostgreSQL : postgresql
 
 # 5/14
@@ -1968,3 +1968,6 @@ IT 시장 성숙도 및 트렌드 부합성
 2. 확정된 타당성 분석 결과를 이해관계자에게 배포하여 공유한다.
 
 - 의사 결정자의 확인으로 공식화된 요구사항의 시스템화 타당성 분석 결과를 관련 이해관계자에게 배포 및 공유함으로써 다음 단계로 진행될 수 있도록 한다.
+
+
+# 5/21
