@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 특가 상품</title>
+    <style>
+   
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #4a4a4a;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .banner {
+            background-color: #1a2530;
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .banner h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .banner p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+    
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .product {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+
+        .product p {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+     
+        .product-image {
+            height: 130px;
+            background-color: #e9ecef;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            text-align: center;
+            line-height: 130px;
+            color: #868e96;
+            font-size: 14px;
+        }
+
+    
+        .product .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000000;
+            margin-top: auto;
+        
+            margin-bottom: 15px;
+        }
+
+      
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2b6cb0;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: #1a4975;
+        }
+
+     
+        .footer {
+            text-align: center;
+            background-color: #e9ecef;
+            padding: 25px;
+            color: #666666;
+            font-size: 14px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">ShopLogo</div>
+            <nav class="menu">
+                <a href="#">신상품</a>
+                <a href="#">베스트</a>
+                <a href="#">세일</a>
+                <a href="#">고객센터</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <div class="container">
+
+        <section class="banner">
+            <h1>오늘의 특가 상품</h1>
+            <p>인기 상품을 특별한 가격으로 만나보세요.</p>
+        </section>
+
+ 
+        <section class="products">
+
+            <article class="product">
+                <div class="product-image">상품 이미지</div>
+                <h2>무선 마우스</h2>
+                <p>조용하고 가벼운 사무용 마우스</p>
+                <p class="price">29,000원</p>
+                <button class="button">구매하기</button>
+            </article>
+
+          
+            <article class="product">
+                <div class="product-image">상품 이미지</div>
+                <h2>기계식 키보드</h2>
+                <p>입문자에게 좋은 키보드</p>
+                <p class="price">79,000원</p>
+                <button class="button">구매하기</button>
+            </article>
+
+        
+            <article class="product">
+                <div class="product-image">상품 이미지</div>
+                <h2>노트북 거치대</h2>
+                <p>목과 어깨 부담을 줄여줍니다.</p>
+                <p class="price">35,000원</p>
+                <button class="button">구매하기</button>
+            </article>
+
+      
+            <article class="product">
+                <div class="product-image">상품 이미지</div>
+                <h2>USB 허브</h2>
+                <p>노트북 포트를 확장합니다.</p>
+                <p class="price">22,000원</p>
+                <button class="button">구매하기</button>
+            </article>
+
+    
+            <article class="product">
+                <div class="product-image">상품 이미지</div>
+                <h2>웹캠</h2>
+                <p>화상회의와 온라인 수업에 적합합니다.</p>
+                <p class="price">45,000원</p>
+                <button class="button">구매하기</button>
+            </article>
+
+      
+            <article class="product">
+                <div class="product-image">상품 이미지</div>
+                <h2>모니터 받침대</h2>
+                <p>책상 공간을 깔끔하게 정리합니다.</p>
+                <p class="price">18,000원</p>
+                <button class="button">구매하기</button>
+            </article>
+        </section>
+    </div>
+
+
+    <footer class="footer">
+        Copyright 2026 ShopLogo
+    </footer>
+
+</body>
+
+</html>

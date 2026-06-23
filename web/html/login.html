@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /*컨테이너 중앙 정렬하기
+    vh브라우저의 높이를 따라간다*/
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f5f7f5;
+
+    }
+
+    .container {
+        width: 800px;
+        height: 400px;
+        background-color: white;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+
+    }
+
+    .logo img {
+        width: 220px;
+        height: auto;
+    }
+
+    /* 버튼을 맨 오른쪽(가로 배치)으로 보내기 위해 이 부분만 가로 정렬(row)로 수정했습니다 */
+    .login-area {
+        display: flex;
+        flex-direction: row;
+        /* 세로(column)에서 가로(row)로 변경 */
+        justify-content: center;
+        align-items: center;
+        /* 가로 나열 상태에서 세로 가운데 정렬 */
+        height: 100%;
+        gap: 15px;
+        /* 입력창과 버튼 사이의 간격 */
+    }
+
+    .logo-area {
+        display: flex;
+
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    input {
+        width: 220px;
+        border: none;
+        border-bottom: 2px solid #999;
+        padding: 8px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    /* 체크박스 고유 스타일: 기존 일반 input 스타일(밑줄, 너비)이 적용되지 않도록 예외 처리했습니다 */
+    .save input[type="checkbox"] {
+        width: auto;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    /* 체크박스와 텍스트 정렬 */
+    .save {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 14px;
+        color: #555;
+        cursor: pointer;
+    }
+
+    button {
+        width: 90px;
+        height: 90px;
+        border: none;
+        background-color: cornflowerblue;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    /* 원본 코드에서 닫히지 않은 중괄호만 채웠습니다 */
+</style>
+
+<body>
+    <div class="container">
+        <!-- 로고-->
+        <div class="logo">
+            <img src="dog.jpg" alt="회사로고">
+
+        </div>
+
+        <!-- 데이터입력공간-->
+        <div class="login-area">
+            <div class="input-group">
+                <input placeholder="아이디">
+                <input type="password" placeholder="비밀번호"">
+                
+                <!-- 체크박스 위치를 입력창 밑으로 이동했습니다 -->
+                <label class=" save">
+                <input type="checkbox">
+                아이디저장
+                </label>
+            </div>
+
+            <button>로그인</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
