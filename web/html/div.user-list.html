@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유저 리스트 관리</title>
+    <style>
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background-color: #ffffff;
+            padding: 40px;
+        }
+
+ 
+        .user-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+         
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            transition: background-color 0.2s ease;
+        }
+
+        .card:first-child {
+            border: 2px solid #3498db;
+        }
+
+
+        .card:nth-child(2) {
+            background-color: #fffcf0;
+        }
+
+
+        .user-name {
+            font-size: 18px;
+            color: #333333;
+        }
+
+     
+        .role-badge {
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+  
+        .role-badge.admin {
+            background-color: #e74c3c;
+            color: #ffffff;
+        }
+
+      
+        .role-badge.member {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+
+  
+        .select-area {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 5px;
+        }
+
+        .select-area label {
+            font-size: 14px;
+            color: #555555;
+            cursor: pointer;
+        }
+
+   
+        .card:hover {
+            background-color: #e9ecef;
+            cursor: pointer;
+        }
+
+        .select-area input[type="checkbox"]:checked+label {
+            color: #9b59b6;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="user-list">
+
+     
+        <div class="card">
+            <h3 class="user-name">홍길동</h3>
+            <span class="role-badge admin">관리자</span>
+            <div class="select-area">
+                <input type="checkbox" id="user-1">
+                <label tribe="select" role="presentation" for="user-1">선택</label>
+            </div>
+        </div>
+
+    
+        <div class="card">
+            <h3 class="user-name">김철수</h3>
+            <span class="role-badge member">일반 회원</span>
+            <div class="select-area">
+                <input type="checkbox" id="user-2">
+                <label tribe="select" role="presentation" for="user-2">선택</label>
+            </div>
+        </div>
+
+     
+        <div class="card">
+            <h3 class="user-name">이영희</h3>
+            <span class="role-badge m
+            
+            
+            
+            ember">일반 회원</span>
+            <div class="select-area">
+                <input type="checkbox" id="user-3">
+                <label tribe="select" role="presentation" for="user-3">선택</label>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
