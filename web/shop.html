@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑몰 상품 목록</title>
+    <style>
+        :root {
+            --primary-color: #ff5722;
+            --badge-color: #e91e63;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-filter-wrapper {
+            display: flex;
+            gap: 15px;
+        }
+
+        input,
+        select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .cart-info {
+            font-size: 18px;
+            font-weight: bold;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 24px;
+            color: #666;
+            margin-top: 50px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-brand {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .product-price-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .product-discount {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .product-rating {
+            color: #fbc02d;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--badge-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .add-cart-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .add-cart-btn:hover {
+            background-color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="search-filter-wrapper">
+            <input type="text" id="searchInput" placeholder="상품명을 입력하세요">
+            <select id="categoryFilter">
+                <option value="all">모든 카테고리</option>
+            </select>
+        </div>
+        <div class="cart-info">장바구니: <span id="cartCount">0</span>개</div>
+    </header>
+
+    <div id="loading" class="loading">로딩 중...</div>
+    <div id="productGrid" class="product-grid"></div>
+
+    <script>
+        let allProducts = [];
+        let cartCount = 0;
+
+        const loadingDiv = document.getElementById('loading');
+        const productGrid = document.getElementById('productGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const cartCountSpan = document.getElementById('cartCount');
+
+       
+        async function fetchProducts() {
+            try {
+                
+                const response = await fetch('https://dummyjson.com/products');
+                const data = await response.json();
+                allProducts = data.products;
+
+                populateCategories();
+                renderProducts(allProducts);
+            } catch (error) {
+                console.error('데이터를 불러오지 못했습니다:', error);
+                loadingDiv.textContent = '데이터를 불러오는 데 실패했습니다.';
+            } finally {
+                loadingDiv.style.display = 'none'; 
+            }
+        }
+
+        
+        function populateCategories() {
+            const categories = [...new Set(allProducts.map(item => item.category))];
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category.toUpperCase();
+                categoryFilter.appendChild(option);
+            });
+        }
+
+      
+        function renderProducts(products) {
+            productGrid.innerHTML = '';
+
+            if (products.length === 0) {
+                productGrid.innerHTML = '<p style="text-align:center; grid-column:1/-1;">검색 결과가 없습니다.</p>';
+                return;
+            }
+
+            products.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+
+               
+                const highPriceBadge = item.price >= 100 ? '<div class="badge">고가 상품</div>' : '';
+
+                card.innerHTML = `
+                    ${highPriceBadge}
+                    <img src="${item.thumbnail}" alt="${item.title}">
+                    <div class="product-name">${item.title}</div>
+                    <div class="product-brand">${item.brand || '브랜드 없음'}</div>
+                    <div class="product-price-info">
+                        <span class="product-discount">${item.discountPercentage ? item.discountPercentage + '%' : ''}</span>
+                        <span class="product-price">$${item.price}</span>
+                    </div>
+                    <div class="product-rating">★ ${item.rating}</div>
+                    <button class="add-cart-btn" onclick="addToCart()">장바구니 담기</button>
+                `;
+
+               
+                const btn = card.querySelector('.add-cart-btn');
+                btn.addEventListener('click', () => {
+                    cartCount++;
+                    cartCountSpan.textContent = cartCount;
+                    alert(`${item.title}이(가) 장바구니에 담겼습니다.`);
+                });
+
+                productGrid.appendChild(card);
+            });    
+        }
+
+  
+        function filterProducts() {
+            const searchText = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;  
+ 
+            const filtered = allProducts.filter(item => {
+                const matchesSearch = item.title.toLowerCase().includes(searchText);
+                const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            renderProducts(filtered);
+
+
+
+             
+
+
+
+
+        }
+
+        searchInput.addEventListener('input', filterProducts);
+        categoryFilter.addEventListener('change', filterProducts);
+
+
+
+        
+    
+        fetchProducts();
+    </script>
+</body>
+
+</html>
