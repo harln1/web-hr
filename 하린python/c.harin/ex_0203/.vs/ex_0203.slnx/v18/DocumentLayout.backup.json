@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F2BA07E5-3345-4054-AC42-D5CB033B77DE}|ex_0203.vcxproj|C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\exma-15-01.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F2BA07E5-3345-4054-AC42-D5CB033B77DE}|ex_0203.vcxproj|solutionrelative:exma-15-01.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2BA07E5-3345-4054-AC42-D5CB033B77DE}|ex_0203.vcxproj|C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\exam-14-01.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F2BA07E5-3345-4054-AC42-D5CB033B77DE}|ex_0203.vcxproj|solutionrelative:exam-14-01.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2BA07E5-3345-4054-AC42-D5CB033B77DE}|ex_0203.vcxproj|C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\\uBB38\uC790\uC5F4\uC758 \uAE38\uC774.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F2BA07E5-3345-4054-AC42-D5CB033B77DE}|ex_0203.vcxproj|solutionrelative:\uBB38\uC790\uC5F4\uC758 \uAE38\uC774.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "exma-15-01.c",
+              "DocumentMoniker": "C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\exma-15-01.c",
+              "RelativeDocumentMoniker": "exma-15-01.c",
+              "ToolTip": "C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\exma-15-01.c",
+              "RelativeToolTip": "exma-15-01.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-02-03T05:11:20.398Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "exam-14-01.c",
+              "DocumentMoniker": "C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\exam-14-01.c",
+              "RelativeDocumentMoniker": "exam-14-01.c",
+              "ToolTip": "C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\exam-14-01.c",
+              "RelativeToolTip": "exam-14-01.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-02-03T04:29:27.279Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "\uBB38\uC790\uC5F4\uC758 \uAE38\uC774.c",
+              "DocumentMoniker": "C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\\uBB38\uC790\uC5F4\uC758 \uAE38\uC774.c",
+              "RelativeDocumentMoniker": "\uBB38\uC790\uC5F4\uC758 \uAE38\uC774.c",
+              "ToolTip": "C:\\Users\\baess\\OneDrive\\Desktop\\c.harin\\ex_0203\\\uBB38\uC790\uC5F4\uC758 \uAE38\uC774.c",
+              "RelativeToolTip": "\uBB38\uC790\uC5F4\uC758 \uAE38\uC774.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-02-03T04:06:40.846Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
