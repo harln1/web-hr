@@ -1,13 +1,13 @@
 package com.example.demo.di4;
 
 import java.io.FileReader;
-import java.lang.reflect.Field; // 1. 자동 주입(리플렉션 Field)에 필요한 임포트 추가
+import java.lang.reflect.Field; 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired; // 2. 스프링 @Autowired 임포트 추가
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -15,8 +15,10 @@ import com.google.common.reflect.ClassPath;
 
 
 @Component class Car{
-	@Autowired Engine engine; // 3. 자동 주입 대상 표시
-	@Autowired Door door;
+	@Autowired 
+	Engine engine; 
+	@Autowired 
+	Door door;
 
 	@Override
 	public String toString() {
@@ -35,7 +37,7 @@ class AppContext{
 	public AppContext() {
 		map = new HashMap();
 		doComponentScan();	
-		doAutowired(); // 4. 컴포넌트 스캔이 끝나고 나서 자동 주입을 시작하도록 호출
+		doAutowired(); 
 	}
 
 	
@@ -78,16 +80,18 @@ class AppContext{
 
 
 	private void doAutowired() {
+		//map에 저장된 객체의 객체변수중에 @Autowired가 붙어있으면
+		//
 		try {
-			// 컨테이너 맵에 저장된 모든 객체들을 하나씩 꺼내어 검사합니다.
+			// map에 저장된 모든 객체들을 하나씩 꺼내어 검사합니다.
 			for (Object bean : map.values()) {
-				// 객체의 필드(변수) 목록을 모두 가져옵니다.
-				for (Field field : bean.getClass().getDeclaredFields()) {
-					// 해당 필드에 @Autowired 어노테이션이 붙어있는지 확인합니다.
-					// 수정한 부분: getAnnotation() 결과가 null이 아닌지 체크하고, 선언된 field 변수명을 정확히 매칭
-					if (field.getAnnotation(Autowired.class) != null) {
-						field.setAccessible(true); // private 필드 접근 허용
-						field.set(bean, getBean(field.getType())); // 타입 기반으로 객체를 찾아 자동 주입
+				// 객체안에 있는 멤버변수를 하나씩 꺼내서
+				for (Field fld : bean.getClass().getDeclaredFields()) {
+					// 하나씩 @Autowired 어노테이션이 붙어있는지 검사
+					if (fld.getAnnotation(Autowired.class) != null) {
+						//fld.getType()필드의 타입을 Engine.class
+						//fls.set() 필드에 객체를 주입 car.engine = engine;
+						fld.set(bean, getBean(fld.getType())); 
 					}
 				}
 			}
