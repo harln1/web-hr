@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 상세 페이지</title>
+    <style>
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Noto Sans KR', sans-serif, Arial;
+            margin: 0;
+            padding: 50px 0;
+        }
+
+
+        .product-container {
+            width: 800px;
+            margin: 0 auto;
+        
+            display: flex;
+        
+            background-color: #ffffff;
+         
+            border: 1px solid #e0e0e0;
+   
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+      
+        .product-container img {
+            width: 300px;
+         
+            height: auto;
+            object-fit: cover;
+        }
+
+  
+        .product-info {
+            flex: 1;
+            padding: 30px;
+           
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .product-info h1 {
+            font-size: 24px;
+            color: #333333;
+            margin: 0;
+        }
+
+ 
+        .price {
+            font-size: 22px;
+      
+            font-weight: bold;
+            color: #ff5a5f;
+
+            margin: 0;
+        }
+
+        .product-info p:not(.price) {
+            font-size: 15px;
+            color: #666666;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .product-info ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #555555;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+       
+        .product-info button {
+            background-color: #007bff;
+         
+            color: #ffffff;
+           
+            border: none;
+      
+            padding: 12px;
+ 
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: auto;
+        
+            transition: background-color 0.2s;
+        }
+
+        .product-info button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="product-container">
+
+        
+        <img src="containerr.jpg" alt="무선 키보드 이미지">
+
+     
+        <div class="product-info">
+        
+            <h1>무선 키보드</h1>
+
+       
+            <p class="price">39,000원</p>
+
+           
+            <p>가볍고 조용한 사무용 무선 키보드입니다.</p>
+
+      
+            <ul>
+                <li>무선 연결</li>
+                <li>조용한 키감</li>
+                <li>긴 배터리</li>
+            </ul>
+
+        
+            <button type="button">구매하기</button>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

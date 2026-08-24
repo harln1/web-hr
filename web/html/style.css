@@ -1,0 +1,48 @@
+
+.gallery-container {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+h1 {
+    text-align: center;
+}
+
+
+.card-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.card {
+    width: 300px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+
+.card button {
+    background-color: #4CAF50;
+
+    color: #ffffff;
+
+    border: none;
+
+    padding: 6px 12px;
+
+    font-size: 13px;
+ 
+    display: block;
+   
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Apply</title>
+    <style>
+        /*p태그에 두께:1px스타일 ::solid 색깔 : black*/
+       p {
+            border: 1px solid black;
+            width: 300px;
+            height: 300px;
+        }
+        /* 배경스타일 주기
+        background-color : 배경색 */
+        .b1 {background-color:#3498db;}
+
+        /* 배경이미지 주기
+        background-image : url('이미지경로') */
+    .b2{background-image: url("dog.jpeg");
+        background-size: cover;}
+
+        /*배경축약속성
+        색상 이미지 반복 위치 를 한번에 지정가능*/
+
+        .b4 {
+            background: skyblue url("dog.jpeg") no-repeat center;
+        }
+        /* 그라데이션
+        background: linear-gradient(방향, 색상1, 색상2, ...); */
+        .d1{
+            windth :200px;
+            height: 200px;
+            background:linear-gradient(pink,#fff);
+        }
+
+        .d2{
+            windth :200px;
+            height: 200px;
+            background:linear-gradient(45deg, pink, #fff);
+        }
+
+        .d3{
+            windth :200px;
+            height: 200px;
+            background:linear-gradient(to left, pink, #fff, deeppink , magenta);
+        }
+
+       
+    </style>
+</head>
+<body>
+    <p class="b1">안녕하세요 반갑습니다 css 공부중입니다.</p>
+    <p class="b2">안녕하세요 반갑습니다 css 공부중입니다.</p>
+    <p class="b3">안녕하세요 반갑습니다 css 공부중입니다.</p>
+    <p class="b4">안녕하세요 반갑습니다 css 공부중입니다.</p>
+    <p class="d1"></p>
+    <p class="d2"></p>
+    <p class="d3"></p>
+
+</body>
+</html>

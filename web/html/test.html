@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Layout 연습</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #e9ecef;
+            /* 전체 메인 배경 회색 */
+        }
+
+        /* 1. Header (상단 초록색 배경) */
+        header {
+            background-color: #2ecc71;
+            color: white;
+            text-align: center;
+            padding: 25px 0 15px 0;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* 2. Navigation (상단 메뉴 바) */
+        nav {
+            background-color: #27ae60;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* 3. Main 컨테이너 */
+        main {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            /* 해상도 대응을 위한 최대폭 제한 */
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+            flex: 1;
+            /* 푸터를 아래로 밀어내기 위함 */
+        }
+
+        /* 공통 카드 스타일 */
+        section,
+        aside {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 8px;
+            /* 둥근 모서리 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 제목 및 본문 폰트 설정 */
+        main h2,
+        main h3 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 8px;
+        }
+
+        main p {
+            font-size: 13px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        /* 4. Section - 메인 콘텐츠 (70%) */
+        main section {
+            flex: 7;
+            background-color: white;
+            /* 흰색 배경 */
+        }
+
+        /* 5. Aside - 사이드바 (30%) */
+        main aside {
+            flex: 3;
+            background-color: #dee2e6;
+            /* 어두운 회색 배경 */
+        }
+
+        /* 6. Footer (하단 어두운 네이비색 배경) */
+        footer {
+            background-color: #34495e;
+            color: #bdc3c7;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 헤더 영역 -->
+    <header>
+        <h1>Flexbox Layout 연습</h1>
+        <!-- 네비게이션 영역 -->
+        <nav>
+            <ul>
+                <li><a href="#">홈</a></li>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main>
+        <!-- 본문 (70%) -->
+        <section>
+            <h2>메인 콘텐츠</h2>
+            <p>이 영역은 본문 내용을 표시하는 구역이다.<br>Flexbox를 이용해 왼쪽에 배치된다.</p>
+        </section>
+
+        <!-- 사이드바 (30%) -->
+        <aside>
+            <h3>사이드바</h3>
+            <p>보조 정보나 공지사항을 표시하는 구역이다.</p>
+        </aside>
+    </main>
+
+    <!-- 푸터 영역 -->
+    <footer>
+        <p>&copy; 2025 Flex Layout Practice</p>
+    </footer>
+
+</body>
+
+</html>

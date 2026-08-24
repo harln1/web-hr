@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>스피너</title>
+    <style>
+      
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+    
+        .spinner {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 6px solid #e5e7eb;
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+        }
+
+    
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 class="title">스피너</h1>
+    <div class="spinner"></div>
+
+</body>
+
+</html>

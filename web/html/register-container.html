@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 페이지</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+
+
+    <div class="register-container">
+
+    
+        <h1>회원가입</h1> 
+
+        <div class="form-row">
+            <label>아이디</label>
+            <div class="id-wrapper">
+                <input type="text" placeholder="아이디를 입력하세요">
+                <button type="button" class="btn-check">중복확인</button>
+            </div>
+        </div>
+
+        
+        <div class="form-row">
+            <label>비밀번호</label>
+            <input type="password" placeholder="비밀번호를 입력하세요">
+        </div>
+
+        <div class="form-row">
+            <label>이메일</label>
+            <div class="email-wrapper">
+                <input type="text" placeholder="이메일 아이디">
+                <span class="at-text">@</span>
+                <select>
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="daum.net">daum.net</option>
+                    <option value="direct">직접입력</option>
+                </select>
+            </div>
+        </div>
+
+   
+        <div class="form-row">
+            <label>주소</label>
+            <input type="text" placeholder="주소를 입력하세요">
+        </div>
+
+
+        <div class="form-row">
+            <label>성별</label>
+            <div class="gender-wrapper">
+                <input type="radio" name="gender" id="male">
+                <label for="male" class="gender-label">남성</label>
+                <input type="radio" name="gender" id="female">
+                <label for="female" class="gender-label">여성</label>
+            </div>
+        </div>
+
+    
+        <div class="button-group">
+            <button type="submit" class="btn-submit">회원가입</button>
+            <button type="button" class="btn-cancel">취소</button>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
